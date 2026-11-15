@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171321">
+  <title>Mr Doran Clicker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+    <header>
+      <p class="eyebrow">THE CLASSROOM CLICKING CHALLENGE</p>
+      <h1>Mr Doran Clicker</h1>
+      <p class="subtitle">Click his face. Earn Doran points. Unlock the chaos.</p>
+    </header>
+
+    <section class="stats" aria-label="Game statistics">
+      <div><span>DORAN POINTS</span><strong id="score">0</strong></div>
+      <div><span>PER CLICK</span><strong id="power">1</strong></div>
+      <div><span>TOTAL CLICKS</span><strong id="clicks">0</strong></div>
+    </section>
+
+    <section class="click-area">
+      <p id="status" aria-live="polite">Mr Doran is having a peaceful day...</p>
+      <div class="stage" id="stage">
+        <div class="seat" aria-hidden="true"></div>
+        <div class="shout" id="shout" aria-hidden="true">OI!</div>
+        <button id="faceButton" class="face-button" type="button" aria-label="Click Mr Doran's face">
+          <img src="assets/mr-doran.jpg" alt="Mr Doran's face">
+        </button>
+        <div class="chromebook" id="chromebook" aria-hidden="true">
+          <div class="screen">CHROMEBOOK</div><div class="keyboard"></div>
+        </div>
+        <span class="float" id="float" aria-hidden="true"></span>
+      </div>
+      <p class="hint">TAP HIS FACE TO COLLECT POINTS</p>
+    </section>
+
+    <section class="shop">
+      <div class="shop-heading"><h2>Upgrades</h2><span>Spend points to unlock each one</span></div>
+      <div id="upgrades" class="upgrade-list"></div>
+    </section>
+
+    <footer>
+      <p id="rank">Rank: Doran Beginner</p>
+      <button id="reset" class="reset" type="button">Reset game</button>
+      <p class="credit">A silly fan-made clicker game. Not affiliated with any school or organisation.</p>
+    </footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
