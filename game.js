@@ -1,7 +1,7 @@
 
 (() => {
   const $ = id => document.getElementById(id);
-  let points = 0, perClick = 1, clicks = 0;
+  let points = 0, perClick = 1, clicks = 0; // NEW UPDATE
 
   const upgrades = [
     { name: "Piss Him Off", description: "Make Mr Doran angry 😠", price: 25, bonus: 1, stage: "angry", message: "Uh oh... you've annoyed Mr Doran!" },
