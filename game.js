@@ -2,6 +2,8 @@
 (() => {
   const $ = id => document.getElementById(id);
 
+  const SAVE_KEY = "mrDoranClickerSave";
+
   let points = 0;
   let perClick = 1;
   let clicks = 0;
@@ -83,6 +85,59 @@
 
   const fmt = n => Math.floor(n).toLocaleString("en-GB");
 
+  function saveGame() {
+    try {
+      localStorage.setItem(SAVE_KEY, JSON.stringify({
+        points,
+        perClick,
+        clicks,
+        levels: upgrades.map(u => u.level || 0)
+      }));
+      $("status").textContent = "Game saved! 💾";
+    } catch (error) {
+      console.warn("Could not save game:", error);
+    }
+  }
+
+  function loadGame() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SAVE_KEY));
+      if (!saved) return;
+
+      if (
+        !Number.isFinite(saved.points) ||
+        !Number.isFinite(saved.perClick) ||
+        !Number.isFinite(saved.clicks) ||
+        !Array.isArray(saved.levels) ||
+        saved.levels.length !== upgrades.length ||
+        !saved.levels.every(level =>
+          Number.isSafeInteger(level) && level >= 0 && level <= 100000
+        ) ||
+        saved.points < 0 ||
+        saved.perClick < 1 ||
+        saved.clicks < 0
+      ) return;
+
+      points = saved.points;
+      perClick = saved.perClick;
+      clicks = saved.clicks;
+
+      upgrades.forEach((u, i) => {
+        u.level = saved.levels[i];
+      });
+
+      upgrades.forEach(u => {
+        if (u.level > 0) {
+          $("stage").classList.add(u.stage);
+        }
+      });
+
+      $("status").textContent = "Welcome back! Your game was loaded 😎";
+    } catch (error) {
+      console.warn("Could not load saved game:", error);
+    }
+  }
+
   function render() {
     $("score").textContent = fmt(points);
     $("power").textContent = fmt(perClick);
@@ -131,6 +186,7 @@
         $("status").textContent = u.message;
 
         render();
+        saveGame();
       });
 
       $("upgrades").append(button);
@@ -150,6 +206,7 @@
     floater.classList.add("show");
 
     render();
+    saveGame();
   });
 
   $("reset").addEventListener("click", () => {
@@ -168,7 +225,11 @@
       "Mr Doran is having a peaceful day...";
 
     render();
+    saveGame();
   });
 
+  loadGame();
   render();
+
+  window.addEventListener("beforeunload", saveGame);
 })();
