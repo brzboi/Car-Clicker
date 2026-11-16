@@ -232,4 +232,7 @@
   render();
 
   window.addEventListener("beforeunload", saveGame);
-})();
+})();//
+// Supabase connection
+const SUPABASE_URL = "https://cofyewdjiwohvklbeqok.supabase.co";
+const SUPABASE_KEY = "YOUR_PUBLISHABLE_KEY_HERE";
