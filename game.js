@@ -1,306 +1,295 @@
 
 (() => {
   const $ = id => document.getElementById(id);
-  const SAVE_KEY = "mrDoranClickerSave";
+
+  const cars = [
+    { name: "BMW M4", price: 0, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" },
+    { name: "Toyota Supra", price: 25000, image: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=1000" },
+    { name: "Nissan GT-R", price: 150000, image: "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?w=1000" },
+    { name: "Lamborghini Huracán", price: 1000000, image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=1000" },
+    { name: "Porsche 911", price: 5000000, image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1000" },
+    { name: "McLaren 720S", price: 25000000, image: "https://images.unsplash.com/photo-1621135802920-133df287f89c?w=1000" },
+    { name: "Ferrari 488", price: 100000000, image: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=1000" },
+    { name: "Purple Audi R8 (CC)", price: 1000000000, image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1000" }
+  ];
+
+  const parts = [
+    { name: "Sports Exhaust", description: "+1 point per click", price: 25, bonus: 1, growth: 1.5 },
+    { name: "Racing Tyres", description: "+4 points per click", price: 120, bonus: 4, growth: 1.6 },
+    { name: "Turbocharger", description: "+15 points per click", price: 650, bonus: 15, growth: 1.7 },
+    { name: "ECU Remap", description: "+60 points per click", price: 3000, bonus: 60, growth: 1.8 },
+    { name: "Twin Turbo", description: "+100 points per click", price: 5000, bonus: 100, growth: 1.8 },
+    { name: "Nitro Boost", description: "+180 points per click", price: 8000, bonus: 180, growth: 1.9 },
+    { name: "Racing Engine", description: "+350 points per click", price: 15000, bonus: 350, growth: 1.9 },
+    { name: "Carbon Fibre Body", description: "+750 points per click", price: 30000, bonus: 750, growth: 2 },
+    { name: "Track Suspension", description: "+1,500 points per click", price: 60000, bonus: 1500, growth: 2 }
+  ];
+
+  const businesses = [
+    { name: "Small Mechanic Workshop", description: "+1 point per second", price: 100, bonus: 1, growth: 1.6 },
+    { name: "Car Wash", description: "+5 points per second", price: 500, bonus: 5, growth: 1.7 },
+    { name: "Used Car Dealership", description: "+20 points per second", price: 2500, bonus: 20, growth: 1.8 },
+    { name: "Fuel Station", description: "+75 points per second", price: 10000, bonus: 75, growth: 1.8 },
+    { name: "Supercar Rental", description: "+250 points per second", price: 50000, bonus: 250, growth: 1.9 },
+    { name: "Racing Team", description: "+1,000 points per second", price: 250000, bonus: 1000, growth: 2 },
+    { name: "Luxury Car Empire", description: "+5,000 points per second", price: 1000000, bonus: 5000, growth: 2 }
+  ];
 
   let points = 0;
-  let perClick = 1;
   let clicks = 0;
+  let perClick = 1;
+  let income = 0;
   let rebirths = 0;
+  let selectedCar = 0;
+  let unlockedCars = [0];
+  let partLevels = Array(parts.length).fill(0);
+  let businessLevels = Array(businesses.length).fill(0);
 
-  const upgrades = [
-    { name: "Piss Him Off", description: "Make Mr Doran angry 😠", price: 25, bonus: 1, growth: 1.5, stage: "angry", message: "Uh oh... you've annoyed Mr Doran!" },
-    { name: "Move Seat", description: "Move your chair around 🪑", price: 120, bonus: 4, growth: 1.6, stage: "moved", message: "MR DORAN HAS MOVED SEATS!" },
-    { name: "Shout", description: "Start shouting 📢", price: 650, bonus: 15, growth: 1.7, stage: "shouting", message: "OI! WHO'S MAKING ALL THAT NOISE?!" },
-    { name: "Pull Out Chromebook", description: "Get the Chromebook out 💻", price: 3000, bonus: 60, growth: 1.8, stage: "laptop", message: "CHROMEBOOK DEPLOYED!" },
-    { name: "Walk Out", description: "Casually leave the classroom 🚪", price: 5000, bonus: 100, growth: 1.8, stage: "walkout", message: "YOU'VE WALKED OUT!" },
-    { name: "Talk to Bro", description: "Have a chat with your mate 🗣️", price: 8000, bonus: 180, growth: 1.8, stage: "talk", message: "BROOOO!" },
-    { name: "Start a Chant", description: "Get the whole class chanting 📣", price: 15000, bonus: 350, growth: 1.9, stage: "chant", message: "EVERYONE IS CHANTING!" },
-    { name: "Do Some Math", description: "Solve some difficult maths ➗", price: 30000, bonus: 750, growth: 1.9, stage: "math", message: "MATHS GENIUS!" },
-    { name: "Eat Food in Class", description: "Sneak some food into class 🍕", price: 60000, bonus: 1500, growth: 2, stage: "food", message: "CAUGHT EATING IN CLASS!" }
-  ];
-
-  const moneyUpgrades = [
-    { name: "Get Your Mate to Do the Work", emoji: "🤝", price: 50, bonus: 1 },
-    { name: "Sneak on Your Phone", emoji: "📱", price: 150, bonus: 2 },
-    { name: "Sell Your Snacks", emoji: "🍫", price: 400, bonus: 5 },
-    { name: "Become the Teacher's Favourite", emoji: "😇", price: 1000, bonus: 10 },
-    { name: "Start a Classroom Business", emoji: "💼", price: 2500, bonus: 20 },
-    { name: "Sell the Homework Answers", emoji: "📝", price: 6000, bonus: 50 },
-    { name: "Become Class Representative", emoji: "🎖️", price: 15000, bonus: 100 },
-    { name: "Control the Seating Plan", emoji: "🪑", price: 40000, bonus: 250 },
-    { name: "Own the Tuck Shop", emoji: "🍬", price: 100000, bonus: 500 },
-    { name: "Become Head Pupil", emoji: "👑", price: 250000, bonus: 1000 },
-    { name: "Run the Whole School", emoji: "🏫", price: 750000, bonus: 5000 },
-    { name: "Sneak a Bag of Crisps", emoji: "🥔", price: 1500000, bonus: 10000 },
-    { name: "Get a Toilet Pass", emoji: "🚽", price: 3000000, bonus: 20000 },
-    { name: "Copy Your Mate's Homework", emoji: "📚", price: 7000000, bonus: 50000 },
-    { name: "Win an Argument with Doran", emoji: "🗣️", price: 15000000, bonus: 100000 },
-    { name: "Get the Class Dismissed Early", emoji: "🔔", price: 35000000, bonus: 250000 },
-    { name: "Become the Chromebook Admin", emoji: "💻", price: 80000000, bonus: 500000 },
-    { name: "Take Over the Canteen", emoji: "🍔", price: 200000000, bonus: 1000000 },
-    { name: "Buy the School", emoji: "🏢", price: 500000000, bonus: 2500000 },
-    { name: "Become Principal", emoji: "🎓", price: 1500000000, bonus: 10000000 },
-    { name: "Become SUPREME PUPIL", emoji: "👑", price: 5000000000, bonus: 50000000 }
-  ];
-
-  const ranks = [
-    [0, "Doran Beginner"],
-    [100, "Doran Apprentice"],
-    [500, "Doran Enthusiast"],
-    [2000, "Doran Expert"],
-    [10000, "Doran Legend"],
-    [50000, "DORAN OVERLORD"]
-  ];
-
-  const fmt = n => Math.floor(n).toLocaleString("en-GB");
-  const multiplier = () => rebirths === 0 ? 1 : rebirths * 2;
-  const passiveBase = () => moneyUpgrades.reduce(
-    (total, u) => total + u.bonus * (u.level || 0), 0
-  );
-  const passiveIncome = () => passiveBase() * multiplier();
-  const rebirthPrice = () => Math.floor(1000000 * Math.pow(5, rebirths));
-
-  function saveGame() {
-    try {
-      localStorage.setItem(SAVE_KEY, JSON.stringify({
-        points,
-        perClick,
-        clicks,
-        rebirths,
-        levels: upgrades.map(u => u.level || 0),
-        moneyLevels: moneyUpgrades.map(u => u.level || 0)
-      }));
-      if ($("status")) $("status").textContent = "Game saved! 💾";
-    } catch (error) {
-      console.warn("Could not save game:", error);
-    }
-  }
+  const saveKey = "carClickerSave";
 
   function loadGame() {
     try {
-      const saved = JSON.parse(localStorage.getItem(SAVE_KEY));
+      const saved = JSON.parse(localStorage.getItem(saveKey));
       if (!saved) return;
-
-      if (
-        !Number.isFinite(saved.points) ||
-        !Number.isFinite(saved.perClick) ||
-        !Number.isFinite(saved.clicks) ||
-        saved.points < 0 ||
-        saved.perClick < 1 ||
-        saved.clicks < 0 ||
-        !Array.isArray(saved.levels) ||
-        saved.levels.length !== upgrades.length
-      ) return;
-
-      points = saved.points;
-      perClick = saved.perClick;
-      clicks = saved.clicks;
-      rebirths = Number.isSafeInteger(saved.rebirths) && saved.rebirths >= 0
-        ? saved.rebirths : 0;
-
-      upgrades.forEach((u, i) => {
-        u.level = Number.isSafeInteger(saved.levels[i]) && saved.levels[i] >= 0
-          ? saved.levels[i] : 0;
-      });
-
-      if (Array.isArray(saved.moneyLevels)) {
-        moneyUpgrades.forEach((u, i) => {
-          u.level = Number.isSafeInteger(saved.moneyLevels[i]) && saved.moneyLevels[i] >= 0
-            ? saved.moneyLevels[i] : 0;
-        });
-      }
-
-      upgrades.forEach(u => {
-        if (u.level > 0 && u.stage) $("stage").classList.add(u.stage);
-      });
-
-      $("status").textContent = "Welcome back! Your game was loaded 😎";
+      points = Number(saved.points) || 0;
+      clicks = Number(saved.clicks) || 0;
+      rebirths = Number(saved.rebirths) || 0;
+      selectedCar = Number(saved.selectedCar) || 0;
+      unlockedCars = Array.isArray(saved.unlockedCars) ? saved.unlockedCars : [0];
+      partLevels = Array.isArray(saved.partLevels) ? saved.partLevels : partLevels;
+      businessLevels = Array.isArray(saved.businessLevels) ? saved.businessLevels : businessLevels;
+      selectedCar = Math.max(0, Math.min(cars.length - 1, selectedCar));
+      if (!unlockedCars.includes(0)) unlockedCars.unshift(0);
+      partLevels = parts.map((_, i) => Math.max(0, Number(partLevels[i]) || 0));
+      businessLevels = businesses.map((_, i) => Math.max(0, Number(businessLevels[i]) || 0));
     } catch (error) {
-      console.warn("Could not load saved game:", error);
+      console.warn("Could not load save:", error);
     }
   }
 
-  // Rebirth panel
-  const rebirthPanel = document.createElement("div");
-  rebirthPanel.className = "rebirth-panel";
-  rebirthPanel.style.cssText = "padding:15px;margin:12px 0;border:2px solid gold;border-radius:12px;text-align:center;";
-  const rebirthInfo = document.createElement("p");
-  const rebirthButton = document.createElement("button");
-  rebirthButton.className = "upgrade";
-  rebirthPanel.append(rebirthInfo, rebirthButton);
-  $("upgrades").before(rebirthPanel);
+  function saveGame() {
+    localStorage.setItem(saveKey, JSON.stringify({
+      points, clicks, rebirths, selectedCar, unlockedCars, partLevels, businessLevels
+    }));
+    if ($("saveStatus")) $("saveStatus").textContent = "Progress saved automatically 💾";
+  }
 
-  function render() {
-    $("score").textContent = fmt(points);
-    $("power").textContent = fmt(perClick * multiplier());
-    $("clicks").textContent = fmt(clicks);
+  function multiplier() {
+    return rebirths === 0 ? 1 : rebirths * 2;
+  }
 
-    let rank = ranks[0][1];
-    ranks.forEach(r => {
-      if (points >= r[0]) rank = r[1];
-    });
-    $("rank").textContent = "Rank: " + rank;
+  function calculateStats() {
+    perClick = 1 + parts.reduce((total, part, i) => total + part.bonus * partLevels[i], 0);
+    income = businesses.reduce((total, business, i) => total + business.bonus * businessLevels[i], 0);
+  }
 
-    rebirthInfo.textContent =
-      "⭐ Rebirths: " + rebirths +
-      " | Multiplier: x" + multiplier() +
-      " | Earn " + fmt(passiveIncome()) + " points per second";
+  function format(number) {
+    if (number < 1000000) return Math.floor(number).toLocaleString("en-GB");
+    const units = ["", "M", "B", "T", "Qa", "Qi"];
+    let value = number;
+    let unit = 0;
+    while (value >= 1000000 && unit < units.length - 1) {
+      value /= 1000;
+      unit++;
+    }
+    return value.toFixed(1) + units[unit];
+  }
 
-    rebirthButton.disabled = points < rebirthPrice();
-    rebirthButton.textContent =
-      "🔄 REBIRTH — Need " + fmt(rebirthPrice()) + " points";
+  function updateStats() {
+    calculateStats();
+    if ($("score")) $("score").textContent = format(points);
+    if ($("power")) $("power").textContent = format(perClick * multiplier());
+    if ($("clicks")) $("clicks").textContent = format(clicks);
+    if ($("income")) $("income").textContent = format(income * multiplier());
+    if ($("rank")) {
+      let rank = "Car Beginner";
+      if (points >= 1000) rank = "Street Racer";
+      if (points >= 100000) rank = "Pro Driver";
+      if (points >= 10000000) rank = "Supercar Legend";
+      if (points >= 1000000000) rank = "Garage Billionaire";
+      $("rank").textContent = "Rank: " + rank;
+    }
+    updateRebirth();
+  }
 
-    const shop = $("upgrades");
-    shop.replaceChildren();
+  function updateCar() {
+    const car = cars[selectedCar];
+    if ($("carImage")) {
+      $("carImage").src = car.image;
+      $("carImage").alt = car.name;
+    }
+    if ($("status")) $("status").textContent = "Your " + car.name + " is ready! Tap it to earn points.";
+  }
 
-    const clickHeading = document.createElement("h3");
-    clickHeading.textContent = "🖱️ CLICK UPGRADES";
-    shop.append(clickHeading);
-
-    upgrades.forEach((u, i) => {
-      const price = Math.floor(u.price * Math.pow(u.growth, u.level || 0));
+  function renderGarage() {
+    if (!$("garage")) return;
+    $("garage").innerHTML = "";
+    cars.forEach((car, i) => {
+      const unlocked = unlockedCars.includes(i);
+      const selected = selectedCar === i;
       const button = document.createElement("button");
       button.className = "upgrade";
-      button.disabled = points < price;
-
-      const info = document.createElement("span");
+      button.disabled = !unlocked && points < car.price;
+      const left = document.createElement("span");
       const name = document.createElement("strong");
-      name.textContent = (i + 1) + ". " + u.name;
-
-      const desc = document.createElement("small");
-      desc.textContent =
-        u.description + " · +" + fmt(u.bonus) +
-        " per click · Owned: " + (u.level || 0);
-
-      info.append(name, desc);
-
-      const cost = document.createElement("span");
-      cost.className = "price";
-      cost.textContent = fmt(price) + " pts";
-      button.append(info, cost);
-
+      name.textContent = (selected ? "✅ " : "") + car.name;
+      const detail = document.createElement("small");
+      detail.textContent = selected ? "Currently selected" : unlocked ? "Unlocked — click to select" : "Unlock this car";
+      left.append(name, detail);
+      const price = document.createElement("span");
+      price.className = "price";
+      price.textContent = unlocked ? (selected ? "SELECTED" : "SELECT") : format(car.price) + " points";
+      button.append(left, price);
       button.addEventListener("click", () => {
-        if (points < price) return;
-        points -= price;
-        perClick += u.bonus;
-        u.level = (u.level || 0) + 1;
-        $("stage").classList.add(u.stage);
-        $("status").textContent = u.message;
-        render();
+        if (unlocked) {
+          selectedCar = i;
+          updateCar();
+        } else if (points >= car.price) {
+          points -= car.price;
+          unlockedCars.push(i);
+          selectedCar = i;
+          updateCar();
+        }
+        renderAll();
         saveGame();
       });
-
-      shop.append(button);
-    });
-
-    const moneyHeading = document.createElement("h3");
-    moneyHeading.textContent = "💰 MONEY PER SECOND UPGRADES";
-    shop.append(moneyHeading);
-
-    const incomeText = document.createElement("p");
-    incomeText.textContent =
-      "You currently earn " + fmt(passiveIncome()) + " points every second!";
-    shop.append(incomeText);
-
-    moneyUpgrades.forEach((u, i) => {
-      const price = Math.floor(u.price * Math.pow(1.65, u.level || 0));
-      const button = document.createElement("button");
-      button.className = "upgrade";
-      button.disabled = points < price;
-
-      const info = document.createElement("span");
-      const name = document.createElement("strong");
-      name.textContent = u.emoji + " " + u.name;
-
-      const desc = document.createElement("small");
-      desc.textContent =
-        "+" + fmt(u.bonus * multiplier()) + " points/sec · Owned: " + (u.level || 0);
-
-      info.append(name, desc);
-
-      const cost = document.createElement("span");
-      cost.className = "price";
-      cost.textContent = fmt(price) + " pts";
-      button.append(info, cost);
-
-      button.addEventListener("click", () => {
-        if (points < price) return;
-        points -= price;
-        u.level = (u.level || 0) + 1;
-        $("status").textContent = u.name + " bought! +" + fmt(u.bonus) + " per second!";
-        render();
-        saveGame();
-      });
-
-      shop.append(button);
+      $("garage").appendChild(button);
     });
   }
 
-  $("faceButton").addEventListener("click", () => {
-    points += perClick * multiplier();
-    clicks++;
+  function renderParts() {
+    if (!$("upgrades")) return;
+    $("upgrades").innerHTML = "";
+    parts.forEach((part, i) => {
+      const cost = Math.floor(part.price * Math.pow(part.growth, partLevels[i]));
+      const button = document.createElement("button");
+      button.className = "upgrade";
+      button.disabled = points < cost;
+      const left = document.createElement("span");
+      const name = document.createElement("strong");
+      name.textContent = part.name + " (Level " + partLevels[i] + ")";
+      const detail = document.createElement("small");
+      detail.textContent = part.description;
+      left.append(name, detail);
+      const price = document.createElement("span");
+      price.className = "price";
+      price.textContent = format(cost) + " points";
+      button.append(left, price);
+      button.addEventListener("click", () => {
+        if (points < cost) return;
+        points -= cost;
+        partLevels[i]++;
+        renderAll();
+        saveGame();
+      });
+      $("upgrades").appendChild(button);
+    });
+  }
 
-    $("status").textContent = "+" + fmt(perClick * multiplier()) + " Doran points!";
+  function renderBusinesses() {
+    if (!$("incomeUpgrades")) return;
+    $("incomeUpgrades").innerHTML = "";
+    businesses.forEach((business, i) => {
+      const cost = Math.floor(business.price * Math.pow(business.growth, businessLevels[i]));
+      const button = document.createElement("button");
+      button.className = "upgrade";
+      button.disabled = points < cost;
+      const left = document.createElement("span");
+      const name = document.createElement("strong");
+      name.textContent = business.name + " (Level " + businessLevels[i] + ")";
+      const detail = document.createElement("small");
+      detail.textContent = business.description;
+      left.append(name, detail);
+      const price = document.createElement("span");
+      price.className = "price";
+      price.textContent = format(cost) + " points";
+      button.append(left, price);
+      button.addEventListener("click", () => {
+        if (points < cost) return;
+        points -= cost;
+        businessLevels[i]++;
+        renderAll();
+        saveGame();
+      });
+      $("incomeUpgrades").appendChild(button);
+    });
+  }
 
-    const floater = $("float");
-    floater.textContent = "+" + fmt(perClick * multiplier());
-    floater.classList.remove("show");
-    void floater.offsetWidth;
-    floater.classList.add("show");
+  function updateRebirth() {
+    const cost = Math.floor(1000000 * Math.pow(5, rebirths));
+    if ($("rebirthInfo")) {
+      $("rebirthInfo").textContent =
+        "Cost: " + format(cost) + " points. Current multiplier: x" + multiplier() +
+        ". Rebirths: " + rebirths;
+    }
+    if ($("rebirthButton")) $("rebirthButton").disabled = points < cost;
+  }
 
-    render();
-    saveGame();
-  });
+  function renderAll() {
+    updateStats();
+    renderGarage();
+    renderParts();
+    renderBusinesses();
+  }
 
-  rebirthButton.addEventListener("click", () => {
-    if (points < rebirthPrice()) return;
-    if (!confirm("REBIRTH? Your points and upgrades will reset, but your rebirth bonus stays forever!")) return;
+  if ($("faceButton")) {
+    $("faceButton").addEventListener("click", () => {
+      points += perClick * multiplier();
+      clicks++;
+      if ($("float")) {
+        $("float").textContent = "+" + format(perClick * multiplier());
+        $("float").classList.remove("show");
+        void $("float").offsetWidth;
+        $("float").classList.add("show");
+      }
+      renderAll();
+      saveGame();
+    });
+  }
 
-    rebirths++;
-    points = 0;
-    perClick = 1;
-    clicks = 0;
+  if ($("rebirthButton")) {
+    $("rebirthButton").addEventListener("click", () => {
+      const cost = Math.floor(1000000 * Math.pow(5, rebirths));
+      if (points < cost) return;
+      rebirths++;
+      points = 0;
+      clicks = 0;
+      selectedCar = 0;
+      unlockedCars = [0];
+      partLevels = Array(parts.length).fill(0);
+      businessLevels = Array(businesses.length).fill(0);
+      updateCar();
+      renderAll();
+      saveGame();
+    });
+  }
 
-    upgrades.forEach(u => u.level = 0);
-    moneyUpgrades.forEach(u => u.level = 0);
-
-    $("stage").className = "stage";
-    $("status").textContent =
-      "REBIRTH " + rebirths + "! Your multiplier is now x" + multiplier() + "!";
-    render();
-    saveGame();
-  });
-
-  $("reset").addEventListener("click", () => {
-    if (!confirm("Reset EVERYTHING, including your rebirths?")) return;
-
-    points = 0;
-    perClick = 1;
-    clicks = 0;
-    rebirths = 0;
-
-    upgrades.forEach(u => u.level = 0);
-    moneyUpgrades.forEach(u => u.level = 0);
-
-    $("stage").className = "stage";
-    $("status").textContent = "Mr Doran is having a peaceful day...";
-    render();
-    saveGame();
-  });
+  if ($("reset")) {
+    $("reset").addEventListener("click", () => {
+      if (!confirm("Reset your whole Car Clicker game?")) return;
+      points = 0;
+      clicks = 0;
+      rebirths = 0;
+      selectedCar = 0;
+      unlockedCars = [0];
+      partLevels = Array(parts.length).fill(0);
+      businessLevels = Array(businesses.length).fill(0);
+      updateCar();
+      renderAll();
+      saveGame();
+    });
+  }
 
   loadGame();
-  render();
+  updateCar();
+  renderAll();
+  saveGame();
 
-  // Passive income, paid every second
   setInterval(() => {
-    const earned = passiveIncome();
-    if (earned > 0) {
-      points += earned;
-      render();
+    if (income > 0) {
+      points += income * multiplier();
+      renderAll();
       saveGame();
     }
   }, 1000);
-
-  window.addEventListener("beforeunload", saveGame);
 })();
