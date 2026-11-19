@@ -84,16 +84,16 @@
   }
 
   function format(number) {
-    if (number < 1000000) return Math.floor(number).toLocaleString("en-GB");
-    const units = ["", "M", "B", "T", "Qa", "Qi"];
-    let value = number;
-    let unit = 0;
-    while (value >= 1000000 && unit < units.length - 1) {
-      value /= 1000;
-      unit++;
-    }
-    return value.toFixed(1) + units[unit];
+  if (number < 1000) return Math.floor(number).toLocaleString("en-GB");
+  const units = ["K", "M", "B", "T", "Qa", "Qi"];
+  let value = number;
+  let unit = -1;
+  while (value >= 1000 && unit < units.length - 1) {
+    value /= 1000;
+    unit++;
   }
+  return value.toFixed(1) + units[unit];
+}
 
   function updateStats() {
     calculateStats();
