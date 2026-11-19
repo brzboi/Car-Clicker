@@ -207,3 +207,65 @@ footer {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* CAR SHOWROOM UPGRADE */
+.garage-car {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+  background: linear-gradient(110deg, #241035, #391653);
+  border: 1px solid #8646b5;
+  transition: .2s ease;
+}
+
+.garage-car:hover:not(:disabled) {
+  border-color: #d9a5ff;
+  box-shadow: 0 0 18px #a23cff88;
+  transform: translateY(-2px);
+}
+
+.garage-car.selected-car {
+  border: 2px solid #d9a5ff;
+  background: linear-gradient(110deg, #49206e, #241035);
+  box-shadow: 0 0 22px #a23cff88;
+}
+
+.garage-car-image {
+  width: 110px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 9px;
+  border: 1px solid #bd80ff;
+}
+
+.garage-car-details {
+  min-width: 0;
+}
+
+.garage-car-details strong,
+.garage-car-details small {
+  display: block;
+}
+
+.garage-car-details small {
+  color: #d8b5f5;
+  margin-top: 7px;
+  font-size: 11px;
+}
+
+@media (max-width: 520px) {
+  .garage-car {
+    grid-template-columns: 85px 1fr;
+  }
+
+  .garage-car-image {
+    width: 85px;
+    height: 65px;
+  }
+
+  .garage-car .price {
+    grid-column: 2;
+  }
+}
