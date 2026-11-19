@@ -121,41 +121,67 @@
     if ($("status")) $("status").textContent = "Your " + car.name + " is ready! Tap it to earn points.";
   }
 
-  function renderGarage() {
-    if (!$("garage")) return;
-    $("garage").innerHTML = "";
-    cars.forEach((car, i) => {
-      const unlocked = unlockedCars.includes(i);
-      const selected = selectedCar === i;
-      const button = document.createElement("button");
-      button.className = "upgrade";
-      button.disabled = !unlocked && points < car.price;
-      const left = document.createElement("span");
-      const name = document.createElement("strong");
-      name.textContent = (selected ? "✅ " : "") + car.name;
-      const detail = document.createElement("small");
-      detail.textContent = selected ? "Currently selected" : unlocked ? "Unlocked — click to select" : "Unlock this car";
-      left.append(name, detail);
-      const price = document.createElement("span");
-      price.className = "price";
-      price.textContent = unlocked ? (selected ? "SELECTED" : "SELECT") : format(car.price) + " points";
-      button.append(left, price);
-      button.addEventListener("click", () => {
-        if (unlocked) {
-          selectedCar = i;
-          updateCar();
-        } else if (points >= car.price) {
-          points -= car.price;
-          unlockedCars.push(i);
-          selectedCar = i;
-          updateCar();
-        }
-        renderAll();
-        saveGame();
-      });
-      $("garage").appendChild(button);
+  
+function renderGarage() {
+  if (!$("garage")) return;
+
+  $("garage").innerHTML = "";
+
+  cars.forEach((car, i) => {
+    const unlocked = unlockedCars.includes(i);
+    const selected = selectedCar === i;
+
+    const button = document.createElement("button");
+    button.className = "upgrade garage-car" + (selected ? " selected-car" : "");
+    button.disabled = !unlocked && points < car.price;
+
+    const image = document.createElement("img");
+    image.className = "garage-car-image";
+    image.src = car.image;
+    image.alt = car.name;
+    image.loading = "lazy";
+
+    const details = document.createElement("span");
+    details.className = "garage-car-details";
+
+    const name = document.createElement("strong");
+    name.textContent = (selected ? "🏁 " : "") + car.name;
+
+    const description = document.createElement("small");
+    description.textContent = selected
+      ? "YOUR CURRENT CAR"
+      : unlocked
+        ? "UNLOCKED — CLICK TO SELECT"
+        : "LOCKED — EARN POINTS TO UNLOCK";
+
+    details.append(name, description);
+
+    const price = document.createElement("span");
+    price.className = "price";
+    price.textContent = unlocked
+      ? (selected ? "SELECTED" : "SELECT")
+      : format(car.price) + " points";
+
+    button.append(image, details, price);
+
+    button.addEventListener("click", () => {
+      if (unlocked) {
+        selectedCar = i;
+        updateCar();
+      } else if (points >= car.price) {
+        points -= car.price;
+        unlockedCars.push(i);
+        selectedCar = i;
+        updateCar();
+      }
+
+      renderAll();
+      saveGame();
     });
-  }
+
+    $("garage").appendChild(button);
+  });
+}
 
   function renderParts() {
     if (!$("upgrades")) return;
