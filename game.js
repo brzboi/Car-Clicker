@@ -4,11 +4,11 @@
 
   const cars = [
     { name: "BMW M4", price: 0, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" },
-    { name: "Toyota Supra", price: 25000, image: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=1000" },
-    { name: "Nissan GT-R", price: 150000, image: "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?w=1000" },
+  { name: "Toyota Supra", price: 25000, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/2023_Toyota_Supra_%282%29.jpg/1200px-2023_Toyota_Supra_%282%29.jpg" },
+  { name: "Nissan GT-R", price: 150000, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/2017_Nissan_GT-R_%28R35%29.jpg/1200px-2017_Nissan_GT-R_%28R35%29.jpg" },      
     { name: "Lamborghini Huracán", price: 1000000, image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=1000" },
-    { name: "Porsche 911", price: 5000000, image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1000" },
-    { name: "McLaren 720S", price: 25000000, image: "https://images.unsplash.com/photo-1621135802920-133df287f89c?w=1000" },
+    { name: "Porsche 911 GT3 RS", price: 5000000, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Porsche_911_GT3_RS_%282022%29_1X7A7164.jpg/1280px-Porsche_911_GT3_RS_%282022%29_1X7A7164.jpg" },
+    { name: "McLaren 720S", price: 25000000, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/2018_McLaren_720S.jpg/1200px-2018_McLaren_720S.jpg" },
     { name: "Ferrari 488", price: 100000000, image: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=1000" },
     { name: "Purple Audi R8 (CC)", price: 1000000000, image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1000" }
   ];
