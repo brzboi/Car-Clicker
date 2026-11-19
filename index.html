@@ -1,54 +1,76 @@
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#171321">
-  <title>Mr Doran Clicker</title>
+  <meta name="theme-color" content="#160b27">
+  <title>Car Clicker</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="game">
     <header>
-      <p class="eyebrow">THE CLASSROOM CLICKING CHALLENGE</p>
-      <h1>Mr Doran Clicker</h1>
-      <p class="subtitle">Click his face. Earn Doran points. Unlock the chaos.</p>
+      <p class="eyebrow">RACE • CLICK • UPGRADE</p>
+      <h1>🏁 CAR CLICKER 🏁</h1>
+      <p class="subtitle">Build your garage. Upgrade your ride. Become a legend.</p>
     </header>
 
-    <section class="stats" aria-label="Game statistics">
-      <div><span>DORAN POINTS</span><strong id="score">0</strong></div>
+    <section class="stats">
+      <div><span>CAR POINTS</span><strong id="score">0</strong></div>
       <div><span>PER CLICK</span><strong id="power">1</strong></div>
       <div><span>TOTAL CLICKS</span><strong id="clicks">0</strong></div>
+      <div><span>POINTS PER SECOND</span><strong id="income">0</strong></div>
     </section>
 
     <section class="click-area">
-      <p id="status" aria-live="polite">Mr Doran is having a peaceful day...</p>
+      <p id="status">Your BMW M4 is ready!</p>
       <div class="stage" id="stage">
-        <div class="seat" aria-hidden="true"></div>
-        <div class="shout" id="shout" aria-hidden="true">OI!</div>
-        <button id="faceButton" class="face-button" type="button" aria-label="Click Mr Doran's face">
-          <img src="mr-doran.jpg" alt="Mr Doran's face">
+        <button id="faceButton" class="face-button" type="button" aria-label="Click your car">
+          <img id="carImage" src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" alt="BMW M4">
         </button>
-        <div class="chromebook" id="chromebook" aria-hidden="true">
-          <div class="screen">CHROMEBOOK</div><div class="keyboard"></div>
-        </div>
-        <span class="float" id="float" aria-hidden="true"></span>
+        <span class="float" id="float"></span>
       </div>
-      <p class="hint">TAP HIS FACE TO COLLECT POINTS</p>
+      <p class="hint">TAP YOUR CAR TO EARN POINTS</p>
     </section>
 
     <section class="shop">
-      <div class="shop-heading"><h2>Upgrades</h2><span>Spend points to unlock each one</span></div>
+      <div class="shop-heading">
+        <h2>🚗 YOUR GARAGE</h2>
+        <span>Unlock and select cars</span>
+      </div>
+      <div id="garage" class="upgrade-list"></div>
+    </section>
+
+    <section class="shop">
+      <div class="shop-heading">
+        <h2>🔧 CAR PARTS</h2>
+        <span>Improve your points per click</span>
+      </div>
       <div id="upgrades" class="upgrade-list"></div>
     </section>
 
+    <section class="shop">
+      <div class="shop-heading">
+        <h2>💰 GARAGE INCOME</h2>
+        <span>Earn points every second</span>
+      </div>
+      <div id="incomeUpgrades" class="upgrade-list"></div>
+    </section>
+
+    <section class="shop rebirth-panel">
+      <h2>⭐ REBIRTH</h2>
+      <p id="rebirthInfo">Rebirth to earn a permanent multiplier.</p>
+      <button id="rebirthButton" type="button">REBIRTH</button>
+    </section>
+
     <footer>
-      <p id="rank">Rank: Doran Beginner</p>
-      <button id="reset" class="reset" type="button">Reset game</button>
-      <p class="credit">A silly fan-made clicker game. Not affiliated with any school or organisation.</p>
+      <p id="rank">Rank: Car Beginner</p>
+      <p id="saveStatus">Your progress saves automatically 💾</p>
+      <button id="reset" class="reset" type="button">Reset Game</button>
+      <p class="credit">Car Clicker • Build your dream garage!</p>
     </footer>
   </main>
- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="game.js"></script>
 </body>
 </html>
