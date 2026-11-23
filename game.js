@@ -68,6 +68,8 @@ const businesses = [
   let rebirths = 0;
   let selectedCar = 0;
   let unlockedCars = [0];
+  let selectedBike = 0;
+let unlockedBikes = [0];
   let partLevels = Array(parts.length).fill(0);
   let businessLevels = Array(businesses.length).fill(0);
 
@@ -82,6 +84,8 @@ const businesses = [
       rebirths = Number(saved.rebirths) || 0;
       selectedCar = Number(saved.selectedCar) || 0;
       unlockedCars = Array.isArray(saved.unlockedCars) ? saved.unlockedCars : [0];
+      selectedBike = Number(saved.selectedBike) || 0;
+unlockedBikes = Array.isArray(saved.unlockedBikes) ? saved.unlockedBikes : [0];
       partLevels = Array.isArray(saved.partLevels) ? saved.partLevels : partLevels;
       businessLevels = Array.isArray(saved.businessLevels) ? saved.businessLevels : businessLevels;
       selectedCar = Math.max(0, Math.min(cars.length - 1, selectedCar));
@@ -95,7 +99,7 @@ const businesses = [
 
   function saveGame() {
     localStorage.setItem(saveKey, JSON.stringify({
-      points, clicks, rebirths, selectedCar, unlockedCars, partLevels, businessLevels
+    points, clicks, rebirths, selectedCar, unlockedCars, selectedBike, unlockedBikes, partLevels, businessLevels
     }));
     if ($("saveStatus")) $("saveStatus").textContent = "Progress saved automatically 💾";
   }
