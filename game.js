@@ -33,15 +33,24 @@ const parts = [
   { name: "Electric Turbo", description: "+600,000 points per click", price: 40000000, bonus: 600000, growth: 2 }
 ];
 
-  const businesses = [
-    { name: "Small Mechanic Workshop", description: "+1 point per second", price: 100, bonus: 1, growth: 1.6 },
-    { name: "Car Wash", description: "+5 points per second", price: 500, bonus: 5, growth: 1.7 },
-    { name: "Used Car Dealership", description: "+20 points per second", price: 2500, bonus: 20, growth: 1.8 },
-    { name: "Fuel Station", description: "+75 points per second", price: 10000, bonus: 75, growth: 1.8 },
-    { name: "Supercar Rental", description: "+250 points per second", price: 50000, bonus: 250, growth: 1.9 },
-    { name: "Racing Team", description: "+1,000 points per second", price: 250000, bonus: 1000, growth: 2 },
-    { name: "Luxury Car Empire", description: "+5,000 points per second", price: 1000000, bonus: 5000, growth: 2 }
-  ];
+ 
+const businesses = [
+  { name: "Small Mechanic Workshop", description: "+1 point per second", price: 100, bonus: 1, growth: 1.6 },
+  { name: "Car Wash", description: "+5 points per second", price: 500, bonus: 5, growth: 1.7 },
+  { name: "Used Car Dealership", description: "+20 points per second", price: 2500, bonus: 20, growth: 1.8 },
+  { name: "Fuel Station", description: "+75 points per second", price: 10000, bonus: 75, growth: 1.8 },
+  { name: "Supercar Rental", description: "+250 points per second", price: 50000, bonus: 250, growth: 1.9 },
+  { name: "Racing Team", description: "+1,000 points per second", price: 250000, bonus: 1000, growth: 2 },
+  { name: "Luxury Car Empire", description: "+5,000 points per second", price: 1000000, bonus: 5000, growth: 2 },
+  { name: "Tyre Shop", description: "+50 points per second", price: 5000000, bonus: 50, growth: 2 },
+  { name: "Car Detailing Centre", description: "+250 points per second", price: 15000000, bonus: 250, growth: 2 },
+  { name: "Supercar Showroom", description: "+1,000 points per second", price: 50000000, bonus: 1000, growth: 2 },
+  { name: "Racing Circuit", description: "+5,000 points per second", price: 200000000, bonus: 5000, growth: 2 },
+  { name: "Hypercar Factory", description: "+25,000 points per second", price: 1000000000, bonus: 25000, growth: 2 },
+  { name: "F1 Racing Corporation", description: "+100,000 points per second", price: 5000000000, bonus: 100000, growth: 2 },
+  { name: "Worldwide Car Empire", description: "+1,000,000 points per second", price: 25000000000, bonus: 1000000, growth: 2 }
+];
+
 
   let points = 0;
   let clicks = 0;
