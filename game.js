@@ -13,17 +13,25 @@
     { name: "Purple Audi R8 (CC)", price: 1000000000, image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1000" }
   ];
 
-  const parts = [
-    { name: "Sports Exhaust", description: "+1 point per click", price: 25, bonus: 1, growth: 1.5 },
-    { name: "Racing Tyres", description: "+4 points per click", price: 120, bonus: 4, growth: 1.6 },
-    { name: "Turbocharger", description: "+15 points per click", price: 650, bonus: 15, growth: 1.7 },
-    { name: "ECU Remap", description: "+60 points per click", price: 3000, bonus: 60, growth: 1.8 },
-    { name: "Twin Turbo", description: "+100 points per click", price: 5000, bonus: 100, growth: 1.8 },
-    { name: "Nitro Boost", description: "+180 points per click", price: 8000, bonus: 180, growth: 1.9 },
-    { name: "Racing Engine", description: "+350 points per click", price: 15000, bonus: 350, growth: 1.9 },
-    { name: "Carbon Fibre Body", description: "+750 points per click", price: 30000, bonus: 750, growth: 2 },
-    { name: "Track Suspension", description: "+1,500 points per click", price: 60000, bonus: 1500, growth: 2 }
-  ];
+ 
+const parts = [
+  { name: "Sports Exhaust", description: "+1 point per click", price: 25, bonus: 1, growth: 1.5 },
+  { name: "Racing Tyres", description: "+4 points per click", price: 120, bonus: 4, growth: 1.6 },
+  { name: "Turbocharger", description: "+15 points per click", price: 650, bonus: 15, growth: 1.7 },
+  { name: "ECU Remap", description: "+60 points per click", price: 3000, bonus: 60, growth: 1.8 },
+  { name: "Twin Turbo", description: "+100 points per click", price: 5000, bonus: 100, growth: 1.8 },
+  { name: "Nitro Boost", description: "+180 points per click", price: 8000, bonus: 180, growth: 1.9 },
+  { name: "Racing Engine", description: "+350 points per click", price: 15000, bonus: 350, growth: 1.9 },
+  { name: "Carbon Fibre Body", description: "+750 points per click", price: 30000, bonus: 750, growth: 2 },
+  { name: "Track Suspension", description: "+1,500 points per click", price: 60000, bonus: 1500, growth: 2 },
+  { name: "Launch Control", description: "+3,000 points per click", price: 120000, bonus: 3000, growth: 2 },
+  { name: "Supercharger", description: "+7,500 points per click", price: 300000, bonus: 7500, growth: 2 },
+  { name: "Racing Exhaust", description: "+15,000 points per click", price: 750000, bonus: 15000, growth: 2 },
+  { name: "Drift Setup", description: "+35,000 points per click", price: 2000000, bonus: 35000, growth: 2 },
+  { name: "Formula 1 Engine", description: "+100,000 points per click", price: 6000000, bonus: 100000, growth: 2 },
+  { name: "Carbon Fibre Upgrade", description: "+250,000 points per click", price: 15000000, bonus: 250000, growth: 2 },
+  { name: "Electric Turbo", description: "+600,000 points per click", price: 40000000, bonus: 600000, growth: 2 }
+];
 
   const businesses = [
     { name: "Small Mechanic Workshop", description: "+1 point per second", price: 100, bonus: 1, growth: 1.6 },
