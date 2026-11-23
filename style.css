@@ -269,3 +269,24 @@ footer {
     grid-column: 2;
   }
 }
+.update-banner {
+  background: linear-gradient(135deg, #35106b, #8b25d6);
+  border: 2px solid #d58aff;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 700px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 20px #9b4dff;
+}
+
+.update-banner h2 {
+  color: #ffe66d;
+  margin-top: 0;
+}
+
+.update-banner p {
+  font-weight: bold;
+  margin: 8px;
+}
