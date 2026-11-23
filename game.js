@@ -13,7 +13,16 @@
     { name: "Purple Audi R8 (CC)", price: 1000000000, image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1000" }
   ];
 
- 
+ const bikes = [
+  { name: "Yamaha R1", price: 100000 },
+  { name: "Kawasaki Ninja H2R", price: 250000 },
+  { name: "Ducati Panigale V4", price: 500000 },
+  { name: "BMW S1000RR", price: 750000 },
+  { name: "Suzuki Hayabusa", price: 1000000 },
+  { name: "Harley-Davidson Fat Boy", price: 3000000 },
+  { name: "BMW M 1000 RR", price: 10000000 },
+  { name: "Ducati Panigale V4 R", price: 25000000 }
+];
 const parts = [
   { name: "Sports Exhaust", description: "+1 point per click", price: 25, bonus: 1, growth: 1.5 },
   { name: "Racing Tyres", description: "+4 points per click", price: 120, bonus: 4, growth: 1.6 },
