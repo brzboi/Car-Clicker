@@ -535,4 +535,118 @@ async function updatePlayerCounter() {
 
 updatePlayerCounter();
 setInterval(updatePlayerCounter, 30000);
+  // ==============================
+// CAR CLICKER GLOBAL LEADERBOARD
+// ==============================
+
+function makeUsername() {
+  return "Player" + Math.floor(1000 + Math.random() * 9000);
+}
+
+let playerUsername = localStorage.getItem("carClickerUsername");
+
+if (!playerUsername) {
+  playerUsername = makeUsername();
+  localStorage.setItem("carClickerUsername", playerUsername);
+}
+
+async function saveLeaderboardScore() {
+  try {
+    const bestPoints = Math.max(
+      Number(localStorage.getItem("carClickerBestPoints")) || 0,
+      Math.floor(points)
+    );
+
+    localStorage.setItem("carClickerBestPoints", String(bestPoints));
+
+    await fetch(`${SUPABASE_URL}/rest/v1/players?on_conflict=player_id`, {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        Prefer: "resolution=merge-duplicates"
+      },
+      body: JSON.stringify({
+        player_id: playerId,
+        username: playerUsername,
+        best_points: bestPoints
+      })
+    });
+  } catch (error) {
+    console.log("Leaderboard save error:", error);
+  }
+}
+
+async function loadLeaderboard() {
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/players?select=username,best_points&order=best_points.desc&limit=10`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+
+    if (!response.ok) throw new Error("Could not load leaderboard");
+
+    const players = await response.json();
+    const board = document.getElementById("leaderboard");
+
+    if (!board) return;
+
+    board.innerHTML = `
+      <h2>🏆 Global Leaderboard</h2>
+      <p>Top 10 players worldwide</p>
+    `;
+
+    players.forEach((player, index) => {
+      const entry = document.createElement("p");
+      entry.textContent =
+        `${index + 1}. ${player.username} — ${Number(player.best_points).toLocaleString()} points`;
+      board.appendChild(entry);
+    });
+  } catch (error) {
+    console.log("Leaderboard load error:", error);
+  }
+}
+
+function createLeaderboard() {
+  if (document.getElementById("leaderboard")) return;
+
+  const board = document.createElement("div");
+  board.id = "leaderboard";
+  board.style.cssText =
+    "background:#222;padding:18px;margin:15px;border-radius:12px;color:white;text-align:center;";
+
+  document.body.appendChild(board);
+
+  const button = document.createElement("button");
+  button.textContent = "✏️ Change Username";
+
+  button.onclick = async () => {
+    const newName = prompt("Choose your username (maximum 16 characters):");
+
+    if (!newName || !newName.trim()) return;
+
+    playerUsername = newName.trim().slice(0, 16);
+    localStorage.setItem("carClickerUsername", playerUsername);
+
+    await saveLeaderboardScore();
+    await loadLeaderboard();
+  };
+
+  board.appendChild(button);
+}
+
+createLeaderboard();
+saveLeaderboardScore();
+loadLeaderboard();
+
+setInterval(async () => {
+  await saveLeaderboardScore();
+  await loadLeaderboard();
+}, 30000);
 })();
