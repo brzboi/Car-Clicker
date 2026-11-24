@@ -638,7 +638,7 @@ function createLeaderboard() {
     await loadLeaderboard();
   };
 
-  board.appendChild(button);
+  document.body.appendChild(button);
 }
 
 createLeaderboard();
