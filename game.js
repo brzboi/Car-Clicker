@@ -109,28 +109,54 @@ let unlockedBikes = [0];
 
   const saveKey = "carClickerSave";
 
-  function loadGame() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(saveKey));
-      if (!saved) return;
-      points = Number(saved.points) || 0;
-      clicks = Number(saved.clicks) || 0;
-      rebirths = Number(saved.rebirths) || 0;
-      selectedCar = Number(saved.selectedCar) || 0;
-      unlockedCars = Array.isArray(saved.unlockedCars) ? saved.unlockedCars : [0];
-      selectedBike = Number(saved.selectedBike) || 0;
-unlockedBikes = Array.isArray(saved.unlockedBikes) ? saved.unlockedBikes : [0];
-      unlockedBikes = unlockedBikes.filter(i => i !== 0);
-      partLevels = Array.isArray(saved.partLevels) ? saved.partLevels : partLevels;
-      businessLevels = Array.isArray(saved.businessLevels) ? saved.businessLevels : businessLevels;
-      selectedCar = Math.max(0, Math.min(cars.length - 1, selectedCar));
-      if (!unlockedCars.includes(0)) unlockedCars.unshift(0);
-      partLevels = parts.map((_, i) => Math.max(0, Number(partLevels[i]) || 0));
-      businessLevels = businesses.map((_, i) => Math.max(0, Number(businessLevels[i]) || 0));
-    } catch (error) {
-      console.warn("Could not load save:", error);
+ function loadGame() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(saveKey));
+    if (!saved) return;
+
+    points = Number(saved.points) || 0;
+    clicks = Number(saved.clicks) || 0;
+    rebirths = Number(saved.rebirths) || 0;
+    selectedCar = Number(saved.selectedCar) || 0;
+    unlockedCars = Array.isArray(saved.unlockedCars) ? saved.unlockedCars : [0];
+    selectedBike = Number(saved.selectedBike) || 0;
+    unlockedBikes = Array.isArray(saved.unlockedBikes) ? saved.unlockedBikes : [0];
+    unlockedBikes = unlockedBikes.filter(i => i !== 0);
+    partLevels = Array.isArray(saved.partLevels) ? saved.partLevels : partLevels;
+
+    const oldBusinessLevels = Array.isArray(saved.businessLevels)
+      ? saved.businessLevels
+      : businessLevels;
+
+    if (localStorage.getItem(saveKey + "_business_order_v1") !== "done") {
+      businessLevels = [
+        oldBusinessLevels[0],
+        oldBusinessLevels[1],
+        oldBusinessLevels[2],
+        oldBusinessLevels[7],
+        oldBusinessLevels[3],
+        oldBusinessLevels[4],
+        oldBusinessLevels[5],
+        oldBusinessLevels[6],
+        ...oldBusinessLevels.slice(8)
+      ];
+
+      saved.businessLevels = businessLevels;
+      localStorage.setItem(saveKey, JSON.stringify(saved));
+      localStorage.setItem(saveKey + "_business_order_v1", "done");
+    } else {
+      businessLevels = oldBusinessLevels;
     }
+
+    selectedCar = Math.max(0, Math.min(cars.length - 1, selectedCar));
+    if (!unlockedCars.includes(0)) unlockedCars.unshift(0);
+    partLevels = parts.map((_, i) => Math.max(0, Number(partLevels[i]) || 0));
+    businessLevels = businesses.map((_, i) => Math.max(0, Number(businessLevels[i]) || 0));
+
+  } catch (error) {
+    console.warn("Could not load save:", error);
   }
+
 
   function saveGame() {
     localStorage.setItem(saveKey, JSON.stringify({
