@@ -328,6 +328,8 @@ function renderGarage() {
       rebirths = 0;
       selectedCar = 0;
       unlockedCars = [0];
+      selectedBike = -1;
+unlockedBikes = [];
       partLevels = Array(parts.length).fill(0);
       businessLevels = Array(businesses.length).fill(0);
       updateCar();
