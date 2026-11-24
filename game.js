@@ -1,4 +1,4 @@
-
+z
 (() => {
   const $ = id => document.getElementById(id);
   // CAR CLICKER SOUND SYSTEM
@@ -468,7 +468,10 @@ unlockedBikes = [];
   // CAR CLICKER PLAYER COUNTERS
 const SUPABASE_URL = "https://nxfskhcsutfwantoeykm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_kjT1BIzaM_IqBEHmyWuJbw__GfHTLOx";
-
+const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 let playerId = localStorage.getItem("carClickerPlayerId");
 
 if (!playerId) {
@@ -630,7 +633,29 @@ function createLeaderboard() {
 
   const button = document.createElement("button");
   button.textContent = "✏️ Change Username";
+const accountButton = document.createElement("button");
+accountButton.textContent = "🔐 Sign Up / Log In";
 
+accountButton.onclick = async () => {
+  const email = prompt("Enter your email:");
+  if (!email) return;
+
+  const password = prompt("Enter your password:");
+  if (!password) return;
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    alert("Login failed: " + error.message);
+  } else {
+    alert("Logged in successfully! 🎉");
+  }
+};
+
+document.body.appendChild(accountButton);
   button.onclick = async () => {
     const newName = prompt("Choose your username (maximum 16 characters):");
 
