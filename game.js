@@ -225,7 +225,13 @@ function renderBikeGarage() {
     const button = document.createElement("button");
     button.className = "upgrade garage-car";
     button.disabled = !unlocked && points < bike.price;
-
+const img = document.createElement("img");
+img.src = bike.image;
+img.alt = bike.name;
+img.className = "bike-image";
+img.style.width = "130px";
+img.style.height = "85px";
+img.style.objectFit = "contain";
     const details = document.createElement("span");
     details.className = "garage-car-details";
 
@@ -241,7 +247,7 @@ function renderBikeGarage() {
     price.className = "price";
     price.textContent = unlocked ? (selected ? "SELECTED" : "SELECT") : format(bike.price) + " points";
 
-    button.append(details, price);
+    button.append(img, details, price);
 
     button.addEventListener("click", () => {
       if (unlocked) {
