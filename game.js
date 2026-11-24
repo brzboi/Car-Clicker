@@ -602,12 +602,17 @@ async function loadLeaderboard() {
       <p>Top 10 players worldwide</p>
     `;
 
-    players.forEach((player, index) => {
-      const entry = document.createElement("p");
-    entry.innerHTML = `${index + 1}. ${player.username === "BRZBOI" ? "👑 " : ""}${player.username === "BRZBOI" ? '<span style="color:gold">BRZBOI 👑 OWNER</span>' : player.username} — ${Number(player.best_points).toLocaleString()} points`;
-        `${index + 1}. ${player.username} — ${Number(player.best_points).toLocaleString()} points`;
-      board.appendChild(entry);
-    });
+   players.forEach((player, index) => {
+  const entry = document.createElement("p");
+
+  entry.innerHTML = `${index + 1}. ${
+    player.username === "BRZBOI"
+      ? "👑 <span style='color:gold'>BRZBOI 👑 OWNER</span>"
+      : player.username
+  } — ${Number(player.best_points).toLocaleString()} points`;
+
+  board.appendChild(entry);
+});
   } catch (error) {
     console.log("Leaderboard load error:", error);
   }
