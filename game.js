@@ -86,6 +86,7 @@ let unlockedBikes = [0];
       unlockedCars = Array.isArray(saved.unlockedCars) ? saved.unlockedCars : [0];
       selectedBike = Number(saved.selectedBike) || 0;
 unlockedBikes = Array.isArray(saved.unlockedBikes) ? saved.unlockedBikes : [0];
+      unlockedBikes = unlockedBikes.filter(i => i !== 0);
       partLevels = Array.isArray(saved.partLevels) ? saved.partLevels : partLevels;
       businessLevels = Array.isArray(saved.businessLevels) ? saved.businessLevels : businessLevels;
       selectedCar = Math.max(0, Math.min(cars.length - 1, selectedCar));
