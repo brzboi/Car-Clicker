@@ -4,7 +4,8 @@
   // CAR CLICKER SOUND SYSTEM
  async function playHorn() {
   try {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    window.audioContext = window.audioContext || new (window.AudioContext || window.webkitAudioContext)();
+const audioContext = window.audioContext;
 if (audioContext.state === "suspended") await audioContext.resume();
     const oscillator = audioContext.createOscillator();
     const gain = audioContext.createGain();
