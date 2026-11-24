@@ -212,7 +212,52 @@ function renderGarage() {
     $("garage").appendChild(button);
   });
 }
+function renderBikeGarage() {
+  if (!$("bikeGarage")) return;
 
+  $("bikeGarage").innerHTML = "";
+
+  bikes.forEach((bike, i) => {
+    const unlocked = unlockedBikes.includes(i);
+    const selected = selectedBike === i;
+
+    const button = document.createElement("button");
+    button.className = "upgrade garage-car";
+    button.disabled = !unlocked && points < bike.price;
+
+    const details = document.createElement("span");
+    details.className = "garage-car-details";
+
+    const name = document.createElement("strong");
+    name.textContent = "🏍️ " + bike.name;
+
+    const description = document.createElement("small");
+    description.textContent = selected ? "YOUR CURRENT BIKE" : unlocked ? "UNLOCKED" : "LOCKED — EARN POINTS";
+
+    details.append(name, description);
+
+    const price = document.createElement("span");
+    price.className = "price";
+    price.textContent = unlocked ? (selected ? "SELECTED" : "SELECT") : format(bike.price) + " points";
+
+    button.append(details, price);
+
+    button.addEventListener("click", () => {
+      if (unlocked) {
+        selectedBike = i;
+      } else if (points >= bike.price) {
+        points -= bike.price;
+        unlockedBikes.push(i);
+        selectedBike = i;
+      }
+
+      renderAll();
+      saveGame();
+    });
+
+    $("bikeGarage").appendChild(button);
+  });
+}
   function renderParts() {
     if (!$("upgrades")) return;
     $("upgrades").innerHTML = "";
