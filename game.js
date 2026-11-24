@@ -11,8 +11,8 @@ if (audioContext.state === "suspended") await audioContext.resume();
     const gain = audioContext.createGain();
 
     oscillator.type = "square";
-    oscillator.frequency.setValueAtTime(420, audioContext.currentTime);
-    oscillator.frequency.setValueAtTime(350, audioContext.currentTime + 0.25);
+    oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+oscillator.frequency.setValueAtTime(370, audioContext.currentTime + 0.25);
 
     gain.gain.setValueAtTime(0.2, audioContext.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.6);
