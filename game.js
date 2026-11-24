@@ -465,4 +465,74 @@ unlockedBikes = [];
       saveGame();
     }
   }, 1000);
+  // CAR CLICKER PLAYER COUNTERS
+const SUPABASE_URL = "https://nxfskhcsutfwantoeykm.supabase.co";
+const SUPABASE_KEY = "sb_publishable_kjT1BIzaM_IqBEHmyWuJbw__GfHTLOx";
+
+let playerId = localStorage.getItem("carClickerPlayerId");
+
+if (!playerId) {
+  playerId = crypto.randomUUID();
+  localStorage.setItem("carClickerPlayerId", playerId);
+}
+
+async function updatePlayerCounter() {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/players?on_conflict=player_id`, {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        Prefer: "resolution=merge-duplicates"
+      },
+      body: JSON.stringify({
+        player_id: playerId,
+        last_seen: new Date().toISOString()
+      })
+    });
+
+    const onlineResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/players?select=player_id&last_seen=gte.${encodeURIComponent(new Date(Date.now() - 90000).toISOString())}`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          Prefer: "count=exact"
+        }
+      }
+    );
+
+    const totalResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/players?select=player_id`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          Prefer: "count=exact"
+        }
+      }
+    );
+
+    const online = onlineResponse.headers.get("content-range");
+    const total = totalResponse.headers.get("content-range");
+
+    let display = document.getElementById("playerCounter");
+
+    if (!display) {
+      display = document.createElement("div");
+      display.id = "playerCounter";
+      display.style.cssText = "text-align:center;padding:12px;margin:12px;font-weight:bold;";
+      document.body.appendChild(display);
+    }
+
+    display.textContent =
+      `🟢 Playing now: ${online?.split("/")[1] || "?"} | 👥 Played ever: ${total?.split("/")[1] || "?"}`;
+  } catch (error) {
+    console.log("Player counter error:", error);
+  }
+}
+
+updatePlayerCounter();
+setInterval(updatePlayerCounter, 30000);
 })();
