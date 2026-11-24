@@ -14,14 +14,15 @@
   ];
 
  const bikes = [
-  { name: "Yamaha R1", price: 100000 },
-  { name: "Kawasaki Ninja H2R", price: 250000 },
-  { name: "Ducati Panigale V4", price: 500000 },
-  { name: "BMW S1000RR", price: 750000 },
-  { name: "Suzuki Hayabusa", price: 1000000 },
-  { name: "Harley-Davidson Fat Boy", price: 3000000 },
-  { name: "BMW M 1000 RR", price: 10000000 },
-  { name: "Ducati Panigale V4 R", price: 25000000 }
+  { name: "Yamaha R1", price: 100000, image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600" },
+  { name: "Kawasaki Ninja H2R", price: 250000, image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600" },
+  { name: "Ducati Panigale V4", price: 500000, image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600" },
+  { name: "BMW S1000RR", price: 750000, image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600" },
+  { name: "Suzuki Hayabusa", price: 1000000, image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600" },
+  { name: "Harley-Davidson Fat Boy", price: 3000000, image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600" },
+  { name: "BMW M 1000 RR", price: 10000000, image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600" },
+  { name: "Ducati Panigale V4 R", price: 25000000, image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600" }
+
 ];
 const parts = [
   { name: "Sports Exhaust", description: "+1 point per click", price: 25, bonus: 1, growth: 1.5 },
