@@ -13,16 +13,15 @@
     { name: "Purple Audi R8 (CC)", price: 1000000000, image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1000" }
   ];
 
- const bikes = [
-  { name: "Yamaha R1", price: 100000, image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600" },
-  { name: "Kawasaki Ninja H2R", price: 250000, image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600" },
-  { name: "Ducati Panigale V4", price: 500000, image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600" },
-  { name: "BMW S1000RR", price: 750000, image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600" },
-  { name: "Suzuki Hayabusa", price: 1000000, image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600" },
-  { name: "Harley-Davidson Fat Boy", price: 3000000, image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600" },
-  { name: "BMW M 1000 RR", price: 10000000, image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600" },
-  { name: "Ducati Panigale V4 R", price: 25000000, image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600" }
-
+const bikes = [
+  { name: "Yamaha R1", price: 100000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha_YZF-R1.jpg" },
+  { name: "Kawasaki Ninja H2R", price: 250000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kawasaki_Ninja_H2R_right.JPG" },
+  { name: "Ducati Panigale V4", price: 500000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ducati_Panigale_V4_2026.jpg" },
+  { name: "BMW S1000RR", price: 750000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/BMW_S1000RR.jpg" },
+  { name: "Suzuki Hayabusa", price: 1000000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Suzuki_Hayabusa_2025.jpg" },
+  { name: "Harley-Davidson Fat Boy", price: 3000000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/FLSTFB_Fat_Boy.jpg" },
+  { name: "BMW M 1000 RR", price: 10000000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2024-06_BMW_M_Motorrad_S1000RR.jpg" },
+  { name: "Ducati Panigale V4 R", price: 25000000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2026_Ducati_Panigale_V4R.jpg" }
 ];
 const parts = [
   { name: "Sports Exhaust", description: "+1 point per click", price: 25, bonus: 1, growth: 1.5 },
