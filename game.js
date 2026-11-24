@@ -10,7 +10,7 @@ if (audioContext.state === "suspended") await audioContext.resume();
     const oscillator = audioContext.createOscillator();
     const gain = audioContext.createGain();
 
-    oscillator.type = "sawtooth";
+    oscillator.type = "square";
     oscillator.frequency.setValueAtTime(420, audioContext.currentTime);
     oscillator.frequency.setValueAtTime(350, audioContext.currentTime + 0.25);
 
