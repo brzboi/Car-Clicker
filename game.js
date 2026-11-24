@@ -288,7 +288,7 @@ function renderGarage() {
     renderParts();
     renderBusinesses();
 }
-  }
+  
 
   if ($("faceButton")) {
     $("faceButton").addEventListener("click", () => {
