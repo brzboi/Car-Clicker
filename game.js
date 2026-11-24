@@ -157,7 +157,7 @@ let unlockedBikes = [0];
     console.warn("Could not load save:", error);
   }
 
-
+ }
   function saveGame() {
     localStorage.setItem(saveKey, JSON.stringify({
     points, clicks, rebirths, selectedCar, unlockedCars, selectedBike, unlockedBikes, partLevels, businessLevels
