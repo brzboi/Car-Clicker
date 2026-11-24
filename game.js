@@ -1,4 +1,4 @@
-z
+
 (() => {
   const $ = id => document.getElementById(id);
   // CAR CLICKER SOUND SYSTEM
