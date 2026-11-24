@@ -370,8 +370,7 @@ img.style.objectFit = "contain";
 
   if ($("faceButton")) {
     $("faceButton").addEventListener("click", () => {
-      playSound(440, 0.25, "sawtooth");
-setTimeout(() => playSound(350, 0.3, "sawtooth"), 180);
+   playHorn();
       points += perClick * multiplier();
       clicks++;
       if ($("float")) {
