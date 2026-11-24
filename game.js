@@ -5,27 +5,37 @@
  async function playHorn() {
   try {
     window.audioContext = window.audioContext || new (window.AudioContext || window.webkitAudioContext)();
-const audioContext = window.audioContext;
-if (audioContext.state === "suspended") await audioContext.resume();
-    const oscillator = audioContext.createOscillator();
+    const audioContext = window.audioContext;
+
+    if (audioContext.state === "suspended") await audioContext.resume();
+
+    const oscillator1 = audioContext.createOscillator();
+    const oscillator2 = audioContext.createOscillator();
     const gain = audioContext.createGain();
 
-    oscillator.type = "square";
-    oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-oscillator.frequency.setValueAtTime(370, audioContext.currentTime + 0.25);
+    oscillator1.type = "sawtooth";
+    oscillator2.type = "sawtooth";
+
+    oscillator1.frequency.value = 350;
+    oscillator2.frequency.value = 440;
 
     gain.gain.setValueAtTime(0.2, audioContext.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.6);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.7);
 
-    oscillator.connect(gain);
+    oscillator1.connect(gain);
+    oscillator2.connect(gain);
     gain.connect(audioContext.destination);
 
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.6);
+    oscillator1.start();
+    oscillator2.start();
+
+    oscillator1.stop(audioContext.currentTime + 0.7);
+    oscillator2.stop(audioContext.currentTime + 0.7);
   } catch (error) {
-    console.log("Horn unavailable");
+    console.log("Horn unavailable", error);
   }
 }
+
   const cars = [
     { name: "BMW M4", price: 0, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" },
 { name: "Toyota Supra", price: 25000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2023_Toyota_Supra.jpg?width=1200" },
