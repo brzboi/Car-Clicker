@@ -2,32 +2,29 @@
 (() => {
   const $ = id => document.getElementById(id);
   // CAR CLICKER SOUND SYSTEM
-  let audioContext;
+ function playHorn() {
+  try {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-  function playSound(frequency = 500, duration = 0.08, type = "square") {
-    try {
-      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
 
-      if (audioContext.state === "suspended") audioContext.resume();
+    oscillator.type = "sawtooth";
+    oscillator.frequency.setValueAtTime(420, audioContext.currentTime);
+    oscillator.frequency.setValueAtTime(350, audioContext.currentTime + 0.25);
 
-      const oscillator = audioContext.createOscillator();
-      const gain = audioContext.createGain();
+    gain.gain.setValueAtTime(0.2, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.6);
 
-      oscillator.type = type;
-      oscillator.frequency.value = frequency;
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
 
-      gain.gain.setValueAtTime(0.12, audioContext.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
-
-      oscillator.connect(gain);
-      gain.connect(audioContext.destination);
-
-      oscillator.start();
-      oscillator.stop(audioContext.currentTime + duration);
-    } catch (error) {
-      console.log("Sound unavailable");
-    }
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.6);
+  } catch (error) {
+    console.log("Horn unavailable");
   }
+}
   const cars = [
     { name: "BMW M4", price: 0, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" },
 { name: "Toyota Supra", price: 25000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2023_Toyota_Supra.jpg?width=1200" },
