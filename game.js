@@ -284,8 +284,10 @@ function renderGarage() {
   function renderAll() {
     updateStats();
     renderGarage();
+    renderBikeGarage();
     renderParts();
     renderBusinesses();
+}
   }
 
   if ($("faceButton")) {
