@@ -604,7 +604,7 @@ async function loadLeaderboard() {
 
     players.forEach((player, index) => {
       const entry = document.createElement("p");
-      entry.textContent =
+    entry.innerHTML = `${index + 1}. ${player.username === "BRZBOI" ? "👑 " : ""}${player.username === "BRZBOI" ? '<span style="color:gold">BRZBOI 👑 OWNER</span>' : player.username} — ${Number(player.best_points).toLocaleString()} points`;
         `${index + 1}. ${player.username} — ${Number(player.best_points).toLocaleString()} points`;
       board.appendChild(entry);
     });
