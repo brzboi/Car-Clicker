@@ -553,51 +553,50 @@ if (!playerUsername) {
   localStorage.setItem("carClickerUsername", playerUsername);
 }
 
+
 async function saveLeaderboardScore() {
   try {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    const { data: account, error: lookupError } = await supabase
+      .from("player_accounts")
+      .select("best_points")
+      .eq("user_id", user.id)
+      .single();
+
+    if (lookupError) throw lookupError;
+
     const bestPoints = Math.max(
-      Number(localStorage.getItem("carClickerBestPoints")) || 0,
+      Number(account.best_points) || 0,
       Math.floor(points)
     );
 
-    localStorage.setItem("carClickerBestPoints", String(bestPoints));
+    const { error } = await supabase
+      .from("player_accounts")
+      .update({ best_points: bestPoints })
+      .eq("user_id", user.id);
 
-    await fetch(`${SUPABASE_URL}/rest/v1/players?on_conflict=player_id`, {
-      method: "POST",
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
-        "Content-Type": "application/json",
-        Prefer: "resolution=merge-duplicates"
-      },
-      body: JSON.stringify({
-        player_id: playerId,
-        username: playerUsername,
-        best_points: bestPoints
-      })
-    });
+    if (error) throw error;
+
   } catch (error) {
     console.log("Leaderboard save error:", error);
   }
 }
 
+
 async function loadLeaderboard() {
   try {
-    const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/players?select=username,best_points&order=best_points.desc&limit=10`,
-      {
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${SUPABASE_KEY}`
-        }
-      }
-    );
+    const { data: players, error } = await supabase
+      .from("player_accounts")
+      .select("username, best_points")
+      .order("best_points", { ascending: false })
+      .limit(10);
 
-    if (!response.ok) throw new Error("Could not load leaderboard");
+    if (error) throw error;
 
-    const players = await response.json();
     const board = document.getElementById("leaderboard");
-
     if (!board) return;
 
     board.innerHTML = `
@@ -606,20 +605,17 @@ async function loadLeaderboard() {
     `;
 
     players.forEach((player, index) => {
-  const entry = document.createElement("p");
+      const entry = document.createElement("p");
+      entry.textContent =
+        `${index + 1}. ${player.username} — ${Number(player.best_points).toLocaleString()} points`;
+      board.appendChild(entry);
+    });
 
-  entry.innerHTML = `${index + 1}. ${
-    player.username === "BRZBOI"
-      ? "👑 <span style='color:gold'>BRZBOI 👑 OWNER</span>"
-      : player.username
-  } — ${Number(player.best_points).toLocaleString()} points`;
-
-  board.appendChild(entry);
-});
   } catch (error) {
     console.log("Leaderboard load error:", error);
   }
 }
+
 
 function createLeaderboard() {
   if (document.getElementById("leaderboard")) return;
