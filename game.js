@@ -636,24 +636,73 @@ function createLeaderboard() {
 const accountButton = document.createElement("button");
 accountButton.textContent = "🔐 Sign Up / Log In";
 
+
 accountButton.onclick = async () => {
-  const email = prompt("Enter your email:");
-  if (!email) return;
+  try {
+    const choice = prompt("Type SIGNUP to create an account or LOGIN to log in:");
+    if (!choice) return;
 
-  const password = prompt("Enter your password:");
-  if (!password) return;
+    const email = prompt("Enter your email:");
+    if (!email) return;
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
+    const password = prompt("Enter your password:");
+    if (!password) return;
 
-  if (error) {
-    alert("Login failed: " + error.message);
-  } else {
-    alert("Logged in successfully! 🎉");
+    let result;
+
+    if (choice.trim().toLowerCase() === "signup") {
+      result = await supabase.auth.signUp({ email, password });
+    } else if (choice.trim().toLowerCase() === "login") {
+      result = await supabase.auth.signInWithPassword({ email, password });
+    } else {
+      alert("Type SIGNUP or LOGIN.");
+      return;
+    }
+
+    if (result.error) throw result.error;
+
+    const user = result.data.user;
+    if (!user || !result.data.session) {
+      alert("Please check your email to confirm your account.");
+      return;
+    }
+
+    const { data: account, error } = await supabase
+      .from("player_accounts")
+      .select("username")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (account) {
+      playerUsername = account.username;
+    } else {
+      const username = prompt("Choose your leaderboard username:");
+      if (!username || !username.trim()) return;
+
+      playerUsername = username.trim().slice(0, 16);
+
+      const { error: insertError } = await supabase
+        .from("player_accounts")
+        .insert({
+          user_id: user.id,
+          username: playerUsername,
+          best_points: Math.floor(points)
+        });
+
+      if (insertError) throw insertError;
+    }
+
+    localStorage.setItem("carClickerUsername", playerUsername);
+    alert("Welcome, " + playerUsername + "! 🎉");
+    await loadLeaderboard();
+
+  } catch (error) {
+    alert("Account error: " + error.message);
   }
 };
+
 
 document.body.appendChild(accountButton);
   button.onclick = async () => {
