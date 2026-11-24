@@ -2,10 +2,10 @@
 (() => {
   const $ = id => document.getElementById(id);
   // CAR CLICKER SOUND SYSTEM
- function playHorn() {
+ async function playHorn() {
   try {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
+if (audioContext.state === "suspended") await audioContext.resume();
     const oscillator = audioContext.createOscillator();
     const gain = audioContext.createGain();
 
