@@ -1,7 +1,33 @@
 
 (() => {
   const $ = id => document.getElementById(id);
+  // CAR CLICKER SOUND SYSTEM
+  let audioContext;
 
+  function playSound(frequency = 500, duration = 0.08, type = "square") {
+    try {
+      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+
+      if (audioContext.state === "suspended") audioContext.resume();
+
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      oscillator.type = type;
+      oscillator.frequency.value = frequency;
+
+      gain.gain.setValueAtTime(0.12, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + duration);
+    } catch (error) {
+      console.log("Sound unavailable");
+    }
+  }
   const cars = [
     { name: "BMW M4", price: 0, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" },
 { name: "Toyota Supra", price: 25000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2023_Toyota_Supra.jpg?width=1200" },
