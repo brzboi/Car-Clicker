@@ -588,9 +588,11 @@ async function saveLeaderboardScore() {
 
 async function loadLeaderboard() {
   try {
+    const OWNER_ID = "55067734-4d0a-46b4-ad51-404ccc0e7527";
+
     const { data: players, error } = await supabase
       .from("player_accounts")
-      .select("username, best_points")
+      .select("user_id, username, best_points")
       .order("best_points", { ascending: false })
       .limit(10);
 
@@ -606,8 +608,14 @@ async function loadLeaderboard() {
 
     players.forEach((player, index) => {
       const entry = document.createElement("p");
+
       entry.textContent =
         `${index + 1}. ${player.username} — ${Number(player.best_points).toLocaleString()} points`;
+
+      if (player.user_id === OWNER_ID) {
+        entry.textContent += " 👑 BRZBOI OWNER";
+      }
+
       board.appendChild(entry);
     });
 
@@ -615,7 +623,6 @@ async function loadLeaderboard() {
     console.log("Leaderboard load error:", error);
   }
 }
-
 
 function createLeaderboard() {
   if (document.getElementById("leaderboard")) return;
