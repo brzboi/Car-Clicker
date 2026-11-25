@@ -491,62 +491,77 @@ if (!playerId) {
   localStorage.setItem("carClickerPlayerId", playerId);
 }
 
-async function updatePlayerCounter() {
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/players?on_conflict=player_id`, {
-      method: "POST",
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
-        "Content-Type": "application/json",
-        Prefer: "resolution=merge-duplicates,return=minimal"
-      },
-      body: JSON.stringify({
-        player_id: playerId,
-        last_seen: new Date().toISOString()
-      })
-    });
 
-    const onlineResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/players?select=player_id&last_seen=gte.${encodeURIComponent(new Date(Date.now() - 90000).toISOString())}`,
+async function updatePlayerCounter() {
+  let display = document.getElementById("playerCounter");
+
+  if (!display) {
+    display = document.createElement("div");
+    display.id = "playerCounter";
+    display.style.cssText = "text-align:center;padding:12px;margin:12px;font-weight:bold;";
+    document.body.appendChild(display);
+  }
+
+  try {
+    display.textContent = "Checking player counter...";
+
+    const saveResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/players?on_conflict=player_id`,
       {
+        method: "POST",
         headers: {
           apikey: SUPABASE_KEY,
           Authorization: `Bearer ${SUPABASE_KEY}`,
-          Prefer: "count=exact"
-        }
+          "Content-Type": "application/json",
+          Prefer: "resolution=merge-duplicates,return=minimal"
+        },
+        body: JSON.stringify({
+          player_id: playerId,
+          last_seen: new Date().toISOString()
+        })
       }
+    );
+
+    if (!saveResponse.ok) {
+      throw new Error("Save failed: " + await saveResponse.text());
+    }
+
+    const headers = {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`,
+      Prefer: "count=exact",
+      Range: "0-0"
+    };
+
+    const onlineResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/players?select=player_id&last_seen=gte.${encodeURIComponent(new Date(Date.now() - 90000).toISOString())}`,
+      { headers }
     );
 
     const totalResponse = await fetch(
       `${SUPABASE_URL}/rest/v1/players?select=player_id`,
-      {
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${SUPABASE_KEY}`,
-          Prefer: "count=exact"
-        }
-      }
+      { headers }
     );
+
+    if (!onlineResponse.ok) {
+      throw new Error("Online count failed: " + await onlineResponse.text());
+    }
+
+    if (!totalResponse.ok) {
+      throw new Error("Total count failed: " + await totalResponse.text());
+    }
 
     const online = onlineResponse.headers.get("content-range");
     const total = totalResponse.headers.get("content-range");
 
-    let display = document.getElementById("playerCounter");
-
-    if (!display) {
-      display = document.createElement("div");
-      display.id = "playerCounter";
-      display.style.cssText = "text-align:center;padding:12px;margin:12px;font-weight:bold;";
-      document.body.appendChild(display);
-    }
-
     display.textContent =
       `🟢 Playing now: ${online?.split("/")[1] || "?"} | 👥 Played ever: ${total?.split("/")[1] || "?"}`;
+
   } catch (error) {
-    console.log("Player counter error:", error);
+    display.textContent = "Counter error: " + error.message;
   }
 }
+
 
 updatePlayerCounter();
 setInterval(updatePlayerCounter, 30000);
