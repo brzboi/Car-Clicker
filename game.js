@@ -437,7 +437,12 @@ detail.textContent = "+" + rate.toLocaleString("en-GB") + " points per second";
       rebirths++;
       points = 0;
       clicks = 0;
-      selectedCar = 0;
+
+// RESET ALL CARS
+selectedCar = 0;
+unlockedCars = [0];
+
+// RESET ALL BIKES
 selectedBike = -1;
 unlockedBikes = [];
       partLevels = Array(parts.length).fill(0);
