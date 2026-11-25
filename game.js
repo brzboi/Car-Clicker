@@ -431,27 +431,33 @@ detail.textContent = "+" + rate.toLocaleString("en-GB") + " points per second";
   }
 
   if ($("rebirthButton")) {
-    $("rebirthButton").addEventListener("click", () => {
-      const cost = Math.floor(1000000 * Math.pow(5, rebirths));
-      if (points < cost) return;
-      rebirths++;
-      points = 0;
-      clicks = 0;
+  $("rebirthButton").addEventListener("click", () => {
+    const cost = Math.floor(1000000 * Math.pow(5, rebirths));
+    if (points < cost) return;
 
-// RESET ALL CARS
-selectedCar = 0;
-unlockedCars = [0];
+    rebirths++;
+    points = 0;
+    clicks = 0;
 
-// RESET ALL BIKES
-selectedBike = -1;
-unlockedBikes = [];
-      partLevels = Array(parts.length).fill(0);
-      businessLevels = Array(businesses.length).fill(0);
-      updateCar();
-      renderAll();
-      saveGame();
-    });
-  }
+    // RESET CARS
+    selectedCar = 0;
+    unlockedCars = [0];
+
+    // RESET BIKES
+    selectedBike = -1;
+    unlockedBikes = [];
+
+    // RESET UPGRADES AND BUSINESSES
+    partLevels = Array(parts.length).fill(0);
+    businessLevels = Array(businesses.length).fill(0);
+
+    updateCar();
+    renderAll();
+    saveGame();
+
+    alert("REBIRTH COMPLETE! Your garage has been reset! 🏎️");
+  });
+}
 
   if ($("reset")) {
     $("reset").addEventListener("click", () => {
