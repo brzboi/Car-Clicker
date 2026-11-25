@@ -517,6 +517,7 @@ async function updatePlayerCounter() {
         },
         body: JSON.stringify({
           player_id: playerId,
+          username: "CarPlayer_" + playerId.replace(/-/g, "").slice(0, 8),
           last_seen: new Date().toISOString()
         })
       }
