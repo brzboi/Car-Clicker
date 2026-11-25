@@ -168,7 +168,12 @@ let unlockedBikes = [0];
   }
 
  function multiplier() {
-  return rebirths === 0 ? 1 : rebirths * 2;
+  const normalMultiplier = rebirths === 0 ? 1 : rebirths * 2;
+  const username = (localStorage.getItem("carClickerUsername") || "").toLowerCase();
+
+  return username === "brzboi"
+    ? normalMultiplier * 100
+    : normalMultiplier;
 }
 
 function vehicleMultiplier() {
@@ -652,9 +657,13 @@ async function loadLeaderboard() {
       entry.textContent =
         `${index + 1}. ${player.username} — ${Number(player.best_points).toLocaleString()} points`;
 
-      if (player.user_id === OWNER_ID) {
-        entry.textContent += " 👑 BRZBOI OWNER";
-      }
+     if (player.user_id === OWNER_ID) {
+  entry.textContent += " 👑 BRZBOI OWNER";
+}
+
+if (player.username.toLowerCase() === "codestar123") {
+  entry.textContent += " 🧪 TESTER";
+}
 
       board.appendChild(entry);
     });
