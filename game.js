@@ -182,7 +182,7 @@ function vehicleMultiplier() {
 
   function calculateStats() {
     perClick = 1 + parts.reduce((total, part, i) => total + part.bonus * partLevels[i], 0);
-    income = businesses.reduce((total, business, i) => total + business.bonus * businessLevels[i], 0);
+   income = businesses.reduce((total, business, i) => total + business.bonus * businessLevels[i], 0) * 1.5;
   }
 
   function format(number) {
