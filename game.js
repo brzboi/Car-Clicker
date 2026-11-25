@@ -924,4 +924,164 @@ setInterval(async () => {
   await saveLeaderboardScore();
   await loadLeaderboard();
 }, 30000);
+  
+// ==============================
+// CAR CLICKER POP-UP UPGRADE SHOP
+// ==============================
+
+const shopStyle = document.createElement("style");
+shopStyle.textContent = `
+#upgradeShopButton {
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:9998;
+  background:linear-gradient(135deg,#8b5cf6,#5b21b6);
+  color:white;
+  border:2px solid #c4b5fd;
+  border-radius:14px;
+  padding:15px 22px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 18px #8b5cf6;
+}
+#upgradeShopOverlay {
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:rgba(0,0,0,.85);
+  align-items:center;
+  justify-content:center;
+  padding:12px;
+}
+#upgradeShopPanel {
+  background:#171126;
+  color:white;
+  border:2px solid #8b5cf6;
+  border-radius:18px;
+  padding:18px;
+  width:100%;
+  max-width:750px;
+  max-height:85vh;
+  overflow-y:auto;
+  box-shadow:0 0 30px #7c3aed;
+}
+#upgradeShopPanel h2 {
+  text-align:center;
+  color:#c4b5fd;
+}
+.shopTabs {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  margin:15px 0;
+}
+.shopTabs button {
+  background:#352052;
+  color:white;
+  border:1px solid #a78bfa;
+  border-radius:10px;
+  padding:10px;
+  cursor:pointer;
+}
+.shopTabs button.active {
+  background:#8b5cf6;
+}
+.shopPage {display:none;}
+.shopPage.active {display:block;}
+#closeUpgradeShop {
+  float:right;
+  background:#dc2626;
+  color:white;
+  border:0;
+  border-radius:8px;
+  padding:8px 12px;
+  cursor:pointer;
+}
+`;
+document.head.appendChild(shopStyle);
+
+const shopButton = document.createElement("button");
+shopButton.id = "upgradeShopButton";
+shopButton.textContent = "⚡ UPGRADES";
+document.body.appendChild(shopButton);
+
+const shopOverlay = document.createElement("div");
+shopOverlay.id = "upgradeShopOverlay";
+
+const shopPanel = document.createElement("div");
+shopPanel.id = "upgradeShopPanel";
+
+shopPanel.innerHTML = `
+  <button id="closeUpgradeShop">✖ Close</button>
+  <h2>🏎️ CAR CLICKER SHOP</h2>
+  <p style="text-align:center;color:#c4b5fd">
+    Upgrade your garage and become a legend!
+  </p>
+  <div class="shopTabs">
+    <button class="active" data-page="clickShop">⚡ Click Upgrades</button>
+    <button data-page="moneyShop">💰 Money Upgrades</button>
+    <button data-page="carShop">🚗 Cars</button>
+    <button data-page="bikeShop">🏍️ Bikes</button>
+  </div>
+  <div id="clickShop" class="shopPage active">
+    <h3>⚡ Click Power</h3>
+    <div id="shopParts"></div>
+  </div>
+  <div id="moneyShop" class="shopPage">
+    <h3>💰 Money Per Second</h3>
+    <div id="shopBusinesses"></div>
+  </div>
+  <div id="carShop" class="shopPage">
+    <h3>🚗 Car Garage</h3>
+    <div id="shopCars"></div>
+  </div>
+  <div id="bikeShop" class="shopPage">
+    <h3>🏍️ Bike Garage</h3>
+    <div id="shopBikes"></div>
+  </div>
+`;
+
+shopOverlay.appendChild(shopPanel);
+document.body.appendChild(shopOverlay);
+
+// Move the existing upgrade lists into the popup.
+// This keeps all your original purchase buttons working.
+document.getElementById("shopParts").appendChild($("upgrades"));
+document.getElementById("shopBusinesses").appendChild($("incomeUpgrades"));
+document.getElementById("shopCars").appendChild($("garage"));
+document.getElementById("shopBikes").appendChild($("bikeGarage"));
+
+shopButton.onclick = () => {
+  shopOverlay.style.display = "flex";
+};
+
+document.getElementById("closeUpgradeShop").onclick = () => {
+  shopOverlay.style.display = "none";
+};
+
+shopOverlay.addEventListener("click", event => {
+  if (event.target === shopOverlay) {
+    shopOverlay.style.display = "none";
+  }
+});
+
+shopPanel.querySelectorAll(".shopTabs button").forEach(button => {
+  button.onclick = () => {
+    shopPanel.querySelectorAll(".shopTabs button").forEach(tab => {
+      tab.classList.remove("active");
+    });
+
+    shopPanel.querySelectorAll(".shopPage").forEach(page => {
+      page.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    document.getElementById(button.dataset.page).classList.add("active");
+  };
+});
+
 })();
