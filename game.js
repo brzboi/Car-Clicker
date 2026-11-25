@@ -1084,4 +1084,34 @@ shopPanel.querySelectorAll(".shopTabs button").forEach(button => {
   };
 });
 
+// Make the existing section headings open the upgrade popup
+document.querySelectorAll("h1, h2, h3, h4").forEach(heading => {
+  const name = heading.textContent.toUpperCase();
+
+  let tab = null;
+
+  if (name.includes("YOUR GARAGE")) tab = "carShop";
+  else if (name.includes("MOTORBIKE GARAGE")) tab = "bikeShop";
+  else if (name.includes("CAR PARTS")) tab = "clickShop";
+  else if (name.includes("GARAGE INCOME")) tab = "moneyShop";
+
+  if (!tab) return;
+
+  heading.style.cursor = "pointer";
+  heading.title = "Click to open";
+
+  heading.addEventListener("click", () => {
+    shopOverlay.style.display = "flex";
+
+    shopPanel.querySelectorAll(".shopTabs button").forEach(button => {
+      const selected = button.dataset.page === tab;
+      button.classList.toggle("active", selected);
+    });
+
+    shopPanel.querySelectorAll(".shopPage").forEach(page => {
+      page.classList.toggle("active", page.id === tab);
+    });
+  });
+});
+
 })();
