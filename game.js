@@ -36,27 +36,29 @@
   }
 }
 
-  const cars = [
-    { name: "BMW M4", price: 0, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" },
-{ name: "Toyota Supra", price: 25000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2023_Toyota_Supra.jpg?width=1200" },
- { name: "Nissan GT-R", price: 150000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2017_Nissan_GT-R.jpg?width=1200" }, 
-    { name: "Lamborghini Huracán", price: 1000000, image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=1000" },
-    { name: "Porsche 911 GT3 RS", price: 5000000, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Porsche_911_GT3_RS_%282022%29_1X7A7164.jpg/1280px-Porsche_911_GT3_RS_%282022%29_1X7A7164.jpg" },
-  { name: "McLaren 720S", price: 25000000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2018_Mclaren_720S.jpg?width=1200" },
-    { name: "Ferrari 488", price: 100000000, image: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=1000" },
-    { name: "Purple Audi R8 (CC)", price: 1000000000, image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1000" }
-  ];
+ const cars = [
+  { name: "BMW M4", price: 0, boost: 1, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" },
+  { name: "Toyota Supra", price: 25000, boost: 1.5, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2023_Toyota_Supra.jpg?width=1200" },
+  { name: "Nissan GT-R", price: 150000, boost: 2, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2017_Nissan_GT-R.jpg?width=1200" },
+  { name: "Lamborghini Huracán", price: 1000000, boost: 3, image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=1000" },
+  { name: "Porsche 911 GT3 RS", price: 5000000, boost: 4, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Porsche_911_GT3_RS_%282022%29_1X7A7164.jpg/1280px-Porsche_911_GT3_RS_%282022%29_1X7A7164.jpg" },
+  { name: "McLaren 720S", price: 25000000, boost: 5, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2018_Mclaren_720S.jpg?width=1200" },
+  { name: "Ferrari 488", price: 100000000, boost: 7, image: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=1000" },
+  { name: "Purple Audi R8 (CC)", price: 1000000000, boost: 10, image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1000" }
+];
 
 const bikes = [
-  { name: "Yamaha R1", price: 100000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha_YZF-R1.jpg" },
-  { name: "Kawasaki Ninja H2R", price: 250000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kawasaki_Ninja_H2R_right.JPG" },
-  { name: "Ducati Panigale V4", price: 500000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ducati_Panigale_V4_2026.jpg" },
-  { name: "BMW S1000RR", price: 750000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/BMW_S1000RR.jpg" },
-  { name: "Suzuki Hayabusa", price: 1000000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Suzuki_Hayabusa_2025.jpg" },
-  { name: "Harley-Davidson Fat Boy", price: 3000000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/FLSTFB_Fat_Boy.jpg" },
-  { name: "BMW M 1000 RR", price: 10000000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2024-06_BMW_M_Motorrad_S1000RR.jpg" },
-  { name: "Ducati Panigale V4 R", price: 25000000, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2026_Ducati_Panigale_V4R.jpg" }
+  { name: "Yamaha R1", price: 100000, boost: 1.2, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha_YZF-R1.jpg" },
+  { name: "Kawasaki Ninja H2R", price: 250000, boost: 1.5, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kawasaki_Ninja_H2R_right.JPG" },
+  { name: "Ducati Panigale V4", price: 500000, boost: 2, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ducati_Panigale_V4_2026.jpg" },
+  { name: "BMW S1000RR", price: 750000, boost: 2.5, image: "https://commons.wikimedia.org/wiki/Special:FilePath/BMW_S1000RR.jpg" },
+  { name: "Suzuki Hayabusa", price: 1000000, boost: 3, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Suzuki_Hayabusa_2025.jpg" },
+  { name: "Harley-Davidson Fat Boy", price: 3000000, boost: 4, image: "https://commons.wikimedia.org/wiki/Special:FilePath/FLSTFB_Fat_Boy.jpg" },
+  { name: "BMW M 1000 RR", price: 10000000, boost: 5, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2024-06_BMW_M_Motorrad_S1000RR.jpg" },
+  { name: "Ducati Panigale V4 R", price: 25000000, boost: 7, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2026_Ducati_Panigale_V4R.jpg" }
 ];
+
+  
 const parts = [
   { name: "Sports Exhaust", description: "+1 point per click", price: 25, bonus: 1, growth: 1.5 },
   { name: "Racing Tyres", description: "+4 points per click", price: 120, bonus: 4, growth: 1.6 },
@@ -165,9 +167,18 @@ let unlockedBikes = [0];
     if ($("saveStatus")) $("saveStatus").textContent = "Progress saved automatically 💾";
   }
 
-  function multiplier() {
-    return rebirths === 0 ? 1 : rebirths * 2;
-  }
+ function multiplier() {
+  return rebirths === 0 ? 1 : rebirths * 2;
+}
+
+function vehicleMultiplier() {
+  const carBoost = cars[selectedCar]?.boost || 1;
+  const bikeBoost = unlockedBikes.includes(selectedBike)
+    ? (bikes[selectedBike]?.boost || 1)
+    : 1;
+
+  return carBoost * bikeBoost;
+}
 
   function calculateStats() {
     perClick = 1 + parts.reduce((total, part, i) => total + part.bonus * partLevels[i], 0);
@@ -189,9 +200,9 @@ let unlockedBikes = [0];
   function updateStats() {
     calculateStats();
     if ($("score")) $("score").textContent = format(points);
-    if ($("power")) $("power").textContent = format(perClick * multiplier());
+   if ($("power")) $("power").textContent = format(perClick * multiplier() * vehicleMultiplier());
     if ($("clicks")) $("clicks").textContent = format(clicks);
-    if ($("income")) $("income").textContent = format(income * multiplier());
+   if ($("income")) $("income").textContent = format(income * multiplier() * vehicleMultiplier());
     if ($("rank")) {
       let rank = "Car Beginner";
       if (points >= 1000) rank = "Street Racer";
@@ -405,10 +416,10 @@ img.style.objectFit = "contain";
   if ($("faceButton")) {
     $("faceButton").addEventListener("click", () => {
    playHorn();
-      points += perClick * multiplier();
+     points += perClick * multiplier() * vehicleMultiplier();
       clicks++;
       if ($("float")) {
-        $("float").textContent = "+" + format(perClick * multiplier());
+      $("float").textContent = "+" + format(perClick * multiplier() * vehicleMultiplier());
         $("float").classList.remove("show");
         void $("float").offsetWidth;
         $("float").classList.add("show");
@@ -460,7 +471,7 @@ unlockedBikes = [];
 
   setInterval(() => {
     if (income > 0) {
-      points += income * multiplier();
+   points += income * multiplier() * vehicleMultiplier();
       renderAll();
       saveGame();
     }
