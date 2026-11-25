@@ -668,71 +668,236 @@ const accountButton = document.createElement("button");
 accountButton.textContent = "🔐 Sign Up / Log In";
 
 
-accountButton.onclick = async () => {
-  try {
-    const choice = prompt("Type SIGNUP to create an account or LOGIN to log in:");
-    if (!choice) return;
+accountButton.onclick = () => {
+  const overlay = document.createElement("div");
 
-    const email = prompt("Enter your email:");
-    if (!email) return;
+  overlay.style.cssText = `
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    background:rgba(0,0,0,0.88);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+    box-sizing:border-box;
+  `;
 
-    const password = prompt("Enter your password:");
-    if (!password) return;
+  overlay.innerHTML = `
+    <div style="
+      background:#21132f;
+      color:white;
+      padding:28px;
+      border-radius:20px;
+      width:100%;
+      max-width:380px;
+      text-align:center;
+      border:2px solid #a855f7;
+      box-shadow:0 0 30px #8b5cf6;
+      font-family:Arial,sans-serif;
+      box-sizing:border-box;
+    ">
+      <div style="font-size:45px">🏎️</div>
+      <h1 style="color:#d8b4fe;margin:8px">CAR CLICKER</h1>
+      <p style="color:#c4b5fd">WELCOME BACK, DRIVER!</p>
 
-    let result;
+      <input id="ccUsername"
+        placeholder="Choose a username"
+        maxlength="16"
+        style="
+          display:none;
+          box-sizing:border-box;
+          width:100%;
+          padding:13px;
+          margin:7px 0;
+          border-radius:9px;
+          border:0;
+        ">
 
-    if (choice.trim().toLowerCase() === "signup") {
-      result = await supabase.auth.signUp({ email, password });
-    } else if (choice.trim().toLowerCase() === "login") {
-      result = await supabase.auth.signInWithPassword({ email, password });
-    } else {
-      alert("Type SIGNUP or LOGIN.");
+      <input id="ccEmail"
+        type="email"
+        placeholder="Email address"
+        style="
+          box-sizing:border-box;
+          width:100%;
+          padding:13px;
+          margin:7px 0;
+          border-radius:9px;
+          border:0;
+        ">
+
+      <input id="ccPassword"
+        type="password"
+        placeholder="Password"
+        style="
+          box-sizing:border-box;
+          width:100%;
+          padding:13px;
+          margin:7px 0;
+          border-radius:9px;
+          border:0;
+        ">
+
+      <label style="font-size:13px;color:#ddd">
+        <input type="checkbox" id="ccShowPassword">
+        Show password
+      </label>
+
+      <button id="ccSubmit" style="
+        display:block;
+        width:100%;
+        padding:14px;
+        margin-top:15px;
+        background:#9333ea;
+        color:white;
+        border:0;
+        border-radius:10px;
+        font-weight:bold;
+        font-size:16px;
+        cursor:pointer;
+      ">LOG IN</button>
+
+      <button id="ccSwitch" style="
+        background:none;
+        color:#d8b4fe;
+        border:0;
+        padding:14px;
+        cursor:pointer;
+      ">Need an account? Sign up</button>
+
+      <p id="ccMessage"
+        style="font-size:13px;color:#fca5a5;overflow-wrap:anywhere">
+      </p>
+
+      <button id="ccClose" style="
+        background:#49345e;
+        color:white;
+        border:0;
+        padding:10px 20px;
+        border-radius:8px;
+        cursor:pointer;
+      ">CLOSE</button>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  let signup = false;
+  const $cc = id => overlay.querySelector("#" + id);
+
+  $cc("ccSwitch").onclick = () => {
+    signup = !signup;
+
+    $cc("ccUsername").style.display =
+      signup ? "block" : "none";
+
+    $cc("ccSubmit").textContent =
+      signup ? "CREATE ACCOUNT" : "LOG IN";
+
+    $cc("ccSwitch").textContent = signup
+      ? "Already have an account? Log in"
+      : "Need an account? Sign up";
+
+    $cc("ccMessage").textContent = "";
+  };
+
+  $cc("ccShowPassword").onchange = event => {
+    $cc("ccPassword").type =
+      event.target.checked ? "text" : "password";
+  };
+
+  $cc("ccClose").onclick = () => overlay.remove();
+
+  $cc("ccSubmit").onclick = async () => {
+    const email = $cc("ccEmail").value.trim();
+    const password = $cc("ccPassword").value;
+    const username = $cc("ccUsername").value.trim();
+
+    if (!email || !password || (signup && !username)) {
+      $cc("ccMessage").textContent =
+        "Please fill in all the boxes.";
       return;
     }
 
-    if (result.error) throw result.error;
-
-    const user = result.data.user;
-    if (!user || !result.data.session) {
-      alert("Please check your email to confirm your account.");
+    if (signup && username.length > 16) {
+      $cc("ccMessage").textContent =
+        "Username must be 16 characters or less.";
       return;
     }
 
-    const { data: account, error } = await supabase
-      .from("player_accounts")
-      .select("username")
-      .eq("user_id", user.id)
-      .maybeSingle();
+    $cc("ccSubmit").disabled = true;
+    $cc("ccSubmit").textContent = "PLEASE WAIT...";
+    $cc("ccMessage").textContent = "";
 
-    if (error) throw error;
+    try {
+      const result = signup
+        ? await supabase.auth.signUp({ email, password })
+        : await supabase.auth.signInWithPassword({
+            email,
+            password
+          });
 
-    if (account) {
-      playerUsername = account.username;
-    } else {
-      const username = prompt("Choose your leaderboard username:");
-      if (!username || !username.trim()) return;
+      if (result.error) throw result.error;
 
-      playerUsername = username.trim().slice(0, 16);
+      const user = result.data.user;
 
-      const { error: insertError } = await supabase
+      if (!user || !result.data.session) {
+        $cc("ccMessage").textContent =
+          "Check your email to confirm your account.";
+
+        $cc("ccSubmit").disabled = false;
+        $cc("ccSubmit").textContent =
+          signup ? "CREATE ACCOUNT" : "LOG IN";
+        return;
+      }
+
+      const { data: account, error } = await supabase
         .from("player_accounts")
-        .insert({
-          user_id: user.id,
-          username: playerUsername,
-          best_points: Math.floor(points)
-        });
+        .select("username")
+        .eq("user_id", user.id)
+        .maybeSingle();
 
-      if (insertError) throw insertError;
+      if (error) throw error;
+
+      if (account) {
+        playerUsername = account.username;
+      } else if (signup) {
+        playerUsername = username.slice(0, 16);
+
+        const { error: insertError } = await supabase
+          .from("player_accounts")
+          .insert({
+            user_id: user.id,
+            username: playerUsername,
+            best_points: Math.floor(points)
+          });
+
+        if (insertError) throw insertError;
+      } else {
+        throw new Error("Account username not found.");
+      }
+
+      localStorage.setItem(
+        "carClickerUsername",
+        playerUsername
+      );
+
+      await loadLeaderboard();
+
+      overlay.remove();
+      alert("Welcome, " + playerUsername + "! 🎉");
+
+    } catch (error) {
+      $cc("ccMessage").textContent = error.message;
+
+      $cc("ccSubmit").disabled = false;
+      $cc("ccSubmit").textContent =
+        signup ? "CREATE ACCOUNT" : "LOG IN";
     }
-
-    localStorage.setItem("carClickerUsername", playerUsername);
-    alert("Welcome, " + playerUsername + "! 🎉");
-    await loadLeaderboard();
-
-  } catch (error) {
-    alert("Account error: " + error.message);
-  }
+  };
 };
+
+
 
 
 document.body.appendChild(accountButton);
