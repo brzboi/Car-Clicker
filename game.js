@@ -499,7 +499,7 @@ async function updatePlayerCounter() {
         apikey: SUPABASE_KEY,
         Authorization: `Bearer ${SUPABASE_KEY}`,
         "Content-Type": "application/json",
-        Prefer: "resolution=merge-duplicates"
+        Prefer: "resolution=merge-duplicates,return=minimal"
       },
       body: JSON.stringify({
         player_id: playerId,
