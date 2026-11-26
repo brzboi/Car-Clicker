@@ -38,9 +38,10 @@
 
 
 
+
 const cars = [
   // ORIGINAL CARS
-  { name: "BMW M4", price: 0, boost: 1, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/BMW_M4_F82.jpg" },
+  { name: "BMW M4", price: 0, boost: 1, garage: "Performance", image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" },
   { name: "Toyota Supra", price: 25000, boost: 1.5, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/2023_Toyota_Supra.jpg" },
   { name: "Nissan GT-R", price: 150000, boost: 2, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/2017_Nissan_GT-R.jpg" },
   { name: "Lamborghini Huracán", price: 1000000, boost: 3, garage: "Supercar", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Lamborghini_Huracan.jpg" },
@@ -60,26 +61,27 @@ const cars = [
   // PERFORMANCE GARAGE
   { name: "BMW M3 Competition", price: 250000000, boost: 8, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/BMW_M3.jpg" },
   { name: "Mercedes-AMG A45", price: 180000000, boost: 7, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Mercedes_A45_AMG.jpg" },
-  { name: "Volkswagen Golf R Mk7", price: 120000000, boost: 6, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Volkswagen_Golf_R_Mk7.jpg" },
-  { name: "BMW M140i", price: 150000000, boost: 7, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/BMW_M140i.jpg" },
-  { name: "Ford Focus RS Mk3", price: 175000000, boost: 7, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/2015_Ford_Focus_RS.jpg" },
+  { name: "Volkswagen Golf R Mk7", price: 120000000, boost: 6, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Golf_R_mk7_side_view.jpg" },
+  { name: "BMW M140i", price: 150000000, boost: 7, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/2017_BMW_M140i.jpg" },
+  { name: "Ford Focus RS Mk3", price: 175000000, boost: 7, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Focus_RS.jpg" },
   { name: "Audi S3", price: 100000000, boost: 6, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Audi_S3.jpg" },
   { name: "Toyota GR Yaris", price: 130000000, boost: 7, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Toyota_GR_Yaris.jpg" },
   { name: "Ford Fiesta ST", price: 60000000, boost: 5, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Fiesta_ST.jpg" },
-  { name: "Golf GTI Clubsport", price: 110000000, boost: 6, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Volkswagen_Golf_GTI_Clubsport.jpg" },
-  { name: "Nissan 370Z Nismo", price: 140000000, boost: 7, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Nissan_370Z_Nismo.jpg" },
+  { name: "Golf GTI Clubsport", price: 110000000, boost: 6, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/VW_Golf_VIII_GTI_Clubsport.jpg" },
+  { name: "Nissan 370Z Nismo", price: 140000000, boost: 7, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/2017_Nissan_370Z_Nismo.jpg" },
 
   // CLASSIC GARAGE
-  { name: "Ford Focus ST225", price: 75000000, boost: 6, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Focus_ST_Facelift.jpg" },
-  { name: "Audi RS3 (1st Gen 8P)", price: 200000000, boost: 8, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Audi_RS3_8P.jpg" },
+  { name: "Ford Focus ST225", price: 75000000, boost: 6, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Focus_ST_Facelift.JPG" },
+  { name: "Audi RS3 (1st Gen 8P)", price: 200000000, boost: 8, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Audi_RS3_%288PA%29_2013-07-17_16.13.00.jpg" },
   { name: "Mitsubishi Evo 9", price: 250000000, boost: 8, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Lancer_Evo_IX.jpg" },
   { name: "Nissan Skyline R34 GT-R", price: 500000000, boost: 10, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/1999_Nissan_Skyline_GT-R.jpg" },
   { name: "Mazda RX-7 FD", price: 180000000, boost: 7, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Mazda-RX-7-FD.jpg" },
   { name: "Honda NSX", price: 350000000, boost: 9, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Honda_NSX.jpg" },
   { name: "Ferrari F40", price: 2000000000, boost: 12, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ferrari_F40.jpg" },
-  { name: "Honda Civic Type R FK8", price: 90000000, boost: 6, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Honda_Civic_Type_R_FK8.jpg" },
+  { name: "Honda Civic Type R FK8", price: 90000000, boost: 6, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Honda_CIVIC_TYPE_R_%28FK8%29.jpg" },
   { name: "Subaru Impreza WRX STI", price: 120000000, boost: 7, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Subaru_WRX_STI.jpg" }
 ];
+
 
 
 
