@@ -66,7 +66,6 @@ const cars = [
   { name: "Ford Focus RS Mk3", price: 175000000, boost: 7, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Focus_RS.jpg" },
   { name: "Audi S3", price: 100000000, boost: 6, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Audi_S3.jpg" },
   { name: "Toyota GR Yaris", price: 130000000, boost: 7, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Toyota_GR_Yaris.jpg" },
-  { name: "Ford Fiesta ST", price: 60000000, boost: 5, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Fiesta_ST_(8228594153).jpg"
   { name: "Golf GTI Clubsport", price: 110000000, boost: 6, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/VW_Golf_VIII_GTI_Clubsport.jpg" },
   { name: "Nissan 370Z Nismo", price: 140000000, boost: 7, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/2017_Nissan_370Z_Nismo.jpg" },
 
