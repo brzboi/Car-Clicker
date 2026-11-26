@@ -168,12 +168,7 @@ let unlockedBikes = [0];
   }
 
  function multiplier() {
-  const normalMultiplier = rebirths === 0 ? 1 : rebirths * 2;
-  const username = (localStorage.getItem("carClickerUsername") || "").toLowerCase();
-
-  return username === "brzboi"
-    ? normalMultiplier * 100
-    : normalMultiplier;
+  return rebirths === 0 ? 1 : rebirths * 2;
 }
 
 function vehicleMultiplier() {
