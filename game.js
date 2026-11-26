@@ -342,7 +342,7 @@ function renderGarage() {
   });
 }
 
-}
+  
 function renderBikeGarage() {
   if (!$("bikeGarage")) return;
 
