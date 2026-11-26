@@ -39,47 +39,46 @@
  
 const cars = [
   // ORIGINAL CARS
-  { name: "BMW M4", price: 0, boost: 1, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" },
-  { name: "Toyota Supra", price: 25000, boost: 1.5, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2023_Toyota_Supra.jpg?width=1200" },
-  { name: "Nissan GT-R", price: 150000, boost: 2, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2017_Nissan_GT-R.jpg?width=1200" },
-  { name: "Lamborghini Huracán", price: 1000000, boost: 3, image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=1000" },
-  { name: "Porsche 911 GT3 RS", price: 5000000, boost: 4, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Porsche_911_GT3_RS_%282022%29_1X7A7164.jpg/1280px-Porsche_911_GT3_RS_%282022%29_1X7A7164.jpg" },
-  { name: "McLaren 720S", price: 25000000, boost: 5, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2018_Mclaren_720S.jpg?width=1200" },
-  { name: "Ferrari 488", price: 100000000, boost: 7, image: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=1000" },
-  { name: "Purple Audi R8 (CC)", price: 1000000000, boost: 10, image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1000" },
+  { name: "BMW M4", price: 0, boost: 1, garage: "Performance", image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" },
+  { name: "Toyota Supra", price: 25000, boost: 1.5, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/2023_Toyota_Supra.jpg?width=1200" },
+  { name: "Nissan GT-R", price: 150000, boost: 2, garage: "Performance", image: "https://commons.wikimedia.org/wiki/Special:FilePath/2017_Nissan_GT-R.jpg?width=1200" },
+  { name: "Lamborghini Huracán", price: 1000000, boost: 3, garage: "Supercar", image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=1000" },
+  { name: "Porsche 911 GT3 RS", price: 5000000, boost: 4, garage: "Performance", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Porsche_911_GT3_RS_%282022%29_1X7A7164.jpg/1280px-Porsche_911_GT3_RS_%282022%29_1X7A7164.jpg" },
+  { name: "McLaren 720S", price: 25000000, boost: 5, garage: "Supercar", image: "https://commons.wikimedia.org/wiki/Special:FilePath/2018_Mclaren_720S.jpg?width=1200" },
+  { name: "Ferrari 488", price: 100000000, boost: 7, garage: "Supercar", image: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=1000" },
+  { name: "Purple Audi R8 (CC)", price: 1000000000, boost: 10, garage: "Supercar", image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1000" },
 
-  // SUPERCARS
-  { name: "Mercedes-AMG GT R", price: 1500000000, boost: 11, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Mercedes-AMG_GT_R.jpg?width=1200" },
-  { name: "Lamborghini Aventador SVJ", price: 2500000000, boost: 12, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Lamborghini_Aventador_SVJ.jpg?width=1200" },
-  { name: "Porsche 918 Spyder", price: 4000000000, boost: 14, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Porsche_918_Spyder.jpg?width=1200" },
-  { name: "Koenigsegg Jesko", price: 5000000000, boost: 15, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Koenigsegg_Jesko.jpg?width=1200" },
-  { name: "McLaren P1", price: 6000000000, boost: 16, image: "https://commons.wikimedia.org/wiki/Special:FilePath/McLaren_P1.jpg?width=1200" },
-  { name: "Bugatti Chiron", price: 10000000000, boost: 18, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Bugatti_Chiron.jpg?width=1200" },
+  // SUPERCAR GARAGE
+  { name: "Mercedes-AMG GT R", price: 1500000000, boost: 11, garage: "Supercar", image: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?w=1000" },
+  { name: "Lamborghini Aventador SVJ", price: 2500000000, boost: 12, garage: "Supercar", image: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1000" },
+  { name: "Porsche 918 Spyder", price: 4000000000, boost: 14, garage: "Supercar", image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1000" },
+  { name: "Koenigsegg Jesko", price: 5000000000, boost: 15, garage: "Supercar", image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1000" },
+  { name: "McLaren P1", price: 6000000000, boost: 16, garage: "Supercar", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1000" },
+  { name: "Bugatti Chiron", price: 10000000000, boost: 18, garage: "Supercar", image: "https://images.unsplash.com/photo-1566023888474-4c7b2a1c2e6d?w=1000" },
 
-  // PERFORMANCE CARS
-  { name: "BMW M3 Competition", price: 250000000, boost: 8, image: "https://commons.wikimedia.org/wiki/Special:FilePath/BMW_M3_Competition.jpg?width=1200" },
-  { name: "Mercedes-AMG A45", price: 180000000, boost: 7, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Mercedes-Benz_A_45_AMG.jpg?width=1200" },
-  { name: "Volkswagen Golf R Mk7", price: 120000000, boost: 6, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Volkswagen_Golf_R.jpg?width=1200" },
-  { name: "BMW M140i", price: 150000000, boost: 7, image: "https://commons.wikimedia.org/wiki/Special:FilePath/BMW_M140i.jpg?width=1200" },
-  { name: "Ford Focus RS Mk3", price: 175000000, boost: 7, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Focus_RS.jpg?width=1200" },
-  { name: "Audi S3", price: 100000000, boost: 6, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Audi_S3.jpg?width=1200" },
-  { name: "Toyota GR Yaris", price: 130000000, boost: 7, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Toyota_GR_Yaris.jpg?width=1200" },
-  { name: "Ford Fiesta ST", price: 60000000, boost: 5, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Fiesta_ST.jpg?width=1200" },
-  { name: "Golf GTI Clubsport", price: 110000000, boost: 6, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Volkswagen_Golf_GTI_Clubsport.jpg?width=1200" },
-  { name: "Nissan 370Z Nismo", price: 140000000, boost: 7, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Nissan_370Z_Nismo.jpg?width=1200" },
+  // PERFORMANCE GARAGE
+  { name: "BMW M3 Competition", price: 250000000, boost: 8, garage: "Performance", image: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=1000" },
+  { name: "Mercedes-AMG A45", price: 180000000, boost: 7, garage: "Performance", image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=1000" },
+  { name: "Volkswagen Golf R Mk7", price: 120000000, boost: 6, garage: "Performance", image: "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?w=1000" },
+  { name: "BMW M140i", price: 150000000, boost: 7, garage: "Performance", image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" },
+  { name: "Ford Focus RS Mk3", price: 175000000, boost: 7, garage: "Performance", image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1000" },
+  { name: "Audi S3", price: 100000000, boost: 6, garage: "Performance", image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1000" },
+  { name: "Toyota GR Yaris", price: 130000000, boost: 7, garage: "Performance", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1000" },
+  { name: "Ford Fiesta ST", price: 60000000, boost: 5, garage: "Performance", image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1000" },
+  { name: "Golf GTI Clubsport", price: 110000000, boost: 6, garage: "Performance", image: "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?w=1000" },
+  { name: "Nissan 370Z Nismo", price: 140000000, boost: 7, garage: "Performance", image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1000" },
 
-  // CLASSICS AND OLDER CARS
-  { name: "Ford Focus ST225", price: 75000000, boost: 6, image: "https://commons.wikimedia.org/wiki/Special:FilePath/2006_Ford_Focus_ST.jpg?width=1200" },
-  { name: "Audi RS3 (1st Gen 8P)", price: 200000000, boost: 8, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Audi_RS3.jpg?width=1200" },
-  { name: "Mitsubishi Evo 9", price: 250000000, boost: 8, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Mitsubishi_Lancer_Evolution_IX.jpg?width=1200" },
-  { name: "Nissan Skyline R34 GT-R", price: 500000000, boost: 10, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Nissan_Skyline_R34_GT-R.jpg?width=1200" },
-  { name: "Mazda RX-7 FD", price: 180000000, boost: 7, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Mazda_RX-7_FD.jpg?width=1200" },
-  { name: "Honda NSX", price: 350000000, boost: 9, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Honda_NSX.jpg?width=1200" },
-  { name: "Ferrari F40", price: 2000000000, boost: 12, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ferrari_F40.jpg?width=1200" },
-  { name: "Honda Civic Type R FK8", price: 90000000, boost: 6, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Honda_Civic_Type_R_FK8.jpg?width=1200" },
-  { name: "Subaru Impreza WRX STI", price: 120000000, boost: 7, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Subaru_Impreza_WRX_STI.jpg?width=1200" }
+  // CLASSIC GARAGE
+  { name: "Ford Focus ST225", price: 75000000, boost: 6, garage: "Classic", image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Focus_ST_Facelift.jpg?width=1200" },
+  { name: "Audi RS3 (1st Gen 8P)", price: 200000000, boost: 8, garage: "Classic", image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=1000" },
+  { name: "Mitsubishi Evo 9", price: 250000000, boost: 8, garage: "Classic", image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1000" },
+  { name: "Nissan Skyline R34 GT-R", price: 500000000, boost: 10, garage: "Classic", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1000" },
+  { name: "Mazda RX-7 FD", price: 180000000, boost: 7, garage: "Classic", image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1000" },
+  { name: "Honda NSX", price: 350000000, boost: 9, garage: "Classic", image: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1000" },
+  { name: "Ferrari F40", price: 2000000000, boost: 12, garage: "Classic", image: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=1000" },
+  { name: "Honda Civic Type R FK8", price: 90000000, boost: 6, garage: "Classic", image: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=1000" },
+  { name: "Subaru Impreza WRX STI", price: 120000000, boost: 7, garage: "Classic", image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1000" }
 ];
-
 
 const bikes = [
   { name: "Yamaha R1", price: 100000, boost: 1.2, image: "https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha_YZF-R1.jpg" },
@@ -259,64 +258,90 @@ function vehicleMultiplier() {
 
   
 function renderGarage() {
-  if (!$("garage")) return;
+  const garage = $("garage");
+  if (!garage) return;
 
-  $("garage").innerHTML = "";
+  garage.innerHTML = "";
 
-  cars.forEach((car, i) => {
-    const unlocked = unlockedCars.includes(i);
-    const selected = selectedCar === i;
+  const categories = [
+    { name: "🏎️ SUPERCAR GARAGE", type: "Supercar" },
+    { name: "🚗 PERFORMANCE GARAGE", type: "Performance" },
+    { name: "🏁 CLASSIC GARAGE", type: "Classic" }
+  ];
 
-    const button = document.createElement("button");
-    button.className = "upgrade garage-car" + (selected ? " selected-car" : "");
-    button.disabled = !unlocked && points < car.price;
+  categories.forEach(category => {
+    const section = document.createElement("div");
+    section.className = "garage-section";
 
-    const image = document.createElement("img");
-    image.className = "garage-car-image";
-    image.src = car.image;
-    image.alt = car.name;
-    image.loading = "lazy";
+    const heading = document.createElement("h2");
+    heading.textContent = category.name;
+    section.appendChild(heading);
 
-    const details = document.createElement("span");
-    details.className = "garage-car-details";
+    const carsContainer = document.createElement("div");
+    carsContainer.className = "garage-category";
 
-    const name = document.createElement("strong");
-    name.textContent = (selected ? "🏁 " : "") + car.name;
+    cars.forEach((car, i) => {
+      if (car.garage !== category.type) return;
 
-    const description = document.createElement("small");
-    description.textContent = selected
-      ? "YOUR CURRENT CAR"
-      : unlocked
-        ? "UNLOCKED — CLICK TO SELECT"
-        : "LOCKED — EARN POINTS TO UNLOCK";
+      const unlocked = unlockedCars.includes(i);
+      const selected = selectedCar === i;
 
-    details.append(name, description);
+      const button = document.createElement("button");
+      button.className = "upgrade garage-car" +
+        (selected ? " selected-car" : "");
+      button.disabled = !unlocked && points < car.price;
 
-    const price = document.createElement("span");
-    price.className = "price";
-    price.textContent = unlocked
-      ? (selected ? "SELECTED" : "SELECT")
-      : format(car.price) + " points";
+      const image = document.createElement("img");
+      image.className = "garage-car-image";
+      image.src = car.image;
+      image.alt = car.name;
+      image.loading = "lazy";
 
-    button.append(image, details, price);
+      const details = document.createElement("span");
+      details.className = "garage-car-details";
 
-    button.addEventListener("click", () => {
-      if (unlocked) {
-        selectedCar = i;
+      const name = document.createElement("strong");
+      name.textContent = (selected ? "🏁 " : "") + car.name;
+
+      const description = document.createElement("small");
+      description.textContent = selected
+        ? "YOUR CURRENT CAR"
+        : unlocked
+          ? "UNLOCKED — CLICK TO SELECT"
+          : "LOCKED — EARN POINTS TO UNLOCK";
+
+      details.append(name, description);
+
+      const price = document.createElement("span");
+      price.className = "price";
+      price.textContent = unlocked
+        ? (selected ? "SELECTED" : "SELECT")
+        : format(car.price) + " points";
+
+      button.append(image, details, price);
+
+      button.addEventListener("click", () => {
+        if (unlocked) {
+          selectedCar = i;
+        } else if (points >= car.price) {
+          points -= car.price;
+          unlockedCars.push(i);
+          selectedCar = i;
+        }
+
         updateCar();
-      } else if (points >= car.price) {
-        points -= car.price;
-        unlockedCars.push(i);
-        selectedCar = i;
-        updateCar();
-      }
+        renderAll();
+        saveGame();
+      });
 
-      renderAll();
-      saveGame();
+      carsContainer.appendChild(button);
     });
 
-    $("garage").appendChild(button);
+    section.appendChild(carsContainer);
+    garage.appendChild(section);
   });
+}
+
 }
 function renderBikeGarage() {
   if (!$("bikeGarage")) return;
